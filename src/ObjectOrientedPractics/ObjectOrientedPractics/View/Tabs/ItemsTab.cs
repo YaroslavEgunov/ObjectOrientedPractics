@@ -4,8 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Services;
-using ObjectOrientedPractics.Model;
+using Color = ObjectOrientedPractics.Services.AppColor;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -164,75 +165,72 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void CostTextBox_TextChanged(object sender, EventArgs e)
         {
-            int index = ItemsListBox.SelectedIndex;
-
-            if (index == -1) return;
-
             try
             {
-                int cost = Convert.ToInt32(CostTextBox.Text);
-                _currentItem.Cost = cost;
+                _currentItem.Cost = Convert.ToDouble(CostTextBox.Text);
+                CostTextBox.BackColor = Color.CorrectColor;
             }
-            catch
+            catch (Exception exception)
             {
-                CostTextBox.BackColor = AppColor.WrongColor;
-                return;
+                _toolTip.SetToolTip(CostTextBox, exception.Message);
+                CostTextBox.BackColor = Color.WrongColor;
             }
-
-            CostTextBox.BackColor = AppColor.CorrectColor;
         }
 
         private void NameTextBox_TextChanged(object sender, EventArgs e)
         {
             int index = ItemsListBox.SelectedIndex;
 
-            if (index == -1) return;
-
-            try
+            if (index == -1)
             {
-                string name = NameTextBox.Text;
-                _currentItem.Name = name;
-
-                int indexItem = FindIndexItemById();
-                UpdateListBox(indexItem);
-            }
-            catch
-            {
-                NameTextBox.BackColor = AppColor.WrongColor;
                 return;
             }
 
-            NameTextBox.BackColor = AppColor.CorrectColor;
+            try
+            {
+                NameTextBox.SelectionStart = NameTextBox.Text.Length;
+                NameTextBox.BackColor = Color.CorrectColor;
+                _currentItem.Name = NameTextBox.Text;
+                int indexItem = FindIndexItemById();
+                UpdateListBox(indexItem);
+            }
+            catch (Exception exception)
+            {
+                _toolTip.SetToolTip(NameTextBox, exception.Message);
+                NameTextBox.BackColor = Color.WrongColor;
+            }
+
+
         }
 
         private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
         {
-            int index = ItemsListBox.SelectedIndex;
-
-            if (index == -1) return;
-
             try
             {
-                string info = DescriptionTextBox.Text;
-                _currentItem.Info = info;
+                _currentItem.Info = DescriptionTextBox.Text;
+                DescriptionTextBox.BackColor = Color.CorrectColor;
             }
-            catch
+            catch (Exception exception)
             {
-                DescriptionTextBox.BackColor = AppColor.WrongColor;
-                return;
+                _toolTip.SetToolTip(DescriptionTextBox, exception.Message);
+                DescriptionTextBox.BackColor = Color.WrongColor;
             }
-
-            DescriptionTextBox.BackColor = AppColor.CorrectColor;
         }
 
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int indexCategory = CategoryComboBox.SelectedIndex;
-            int indexListBox = ItemsListBox.SelectedIndex;
-
-            if ((indexCategory == -1) || (indexListBox == -1)) return;
-
-            _currentItem.Category = (Category) CategoryComboBox.SelectedItem;
+            try
+            {
+                if (_currentItem == null)
+                {
+                    return;
+                }
+                _currentItem.Category = (Category)CategoryComboBox.SelectedIndex;
+            }
+            catch (Exception exception)
+            {
+                _toolTip.SetToolTip(CategoryComboBox, exception.Message);
+            }
         }
     }
 }

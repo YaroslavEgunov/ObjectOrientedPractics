@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Enums;
 using ObjectOrientedPractics.Services;
 
 namespace ObjectOrientedPractics.Model.Orders

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ObjectOrientedPractics.Model;
+using ObjectOrientedPractics.Model.Enums;
 
 namespace ObjectOrientedPractics.Model.Discounts
 {

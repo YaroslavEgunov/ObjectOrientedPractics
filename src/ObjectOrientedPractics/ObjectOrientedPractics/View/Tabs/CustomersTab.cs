@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
@@ -8,6 +10,7 @@ using ObjectOrientedPractics.Model.Discounts;
 using ObjectOrientedPractics.Model.Orders;
 using ObjectOrientedPractics.Services;
 using ObjectOrientedPractics.View.Forms;
+using Color = ObjectOrientedPractics.Services.AppColor;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -17,9 +20,14 @@ namespace ObjectOrientedPractics.View.Tabs
     public partial class CustomersTab : UserControl
     {
         /// <summary>
+        /// Создаёт всплывающую подсказку.
+        /// </summary>
+        private ToolTip _toolTip = new ToolTip();
+
+        /// <summary>
         /// Коллекция покупателей.
         /// </summary>
-        private List<Customer> _customers;
+        private List<Customer> _customers = new List<Customer>();
 
         /// <summary>
         /// Выбранный покупатель.
@@ -32,13 +40,14 @@ namespace ObjectOrientedPractics.View.Tabs
         public CustomersTab()
         {
             InitializeComponent();
-            EnabledField(false);
-            
         }
 
         /// <summary>
         /// Возвращает и задает коллекцию покупателей.
         /// </summary>
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Customer> Customers
         {
             get => _customers;
@@ -63,16 +72,6 @@ namespace ObjectOrientedPractics.View.Tabs
             }
         }
 
-        void EnabledField(bool enabled)
-        {
-            AddressControl.Enabled = enabled;
-            IsPriorityCheckBox.Enabled = enabled;
-            FullNameTextBox.Enabled = enabled;
-            DiscountsListBox.Enabled = enabled;
-            AddDiscountButton.Enabled = enabled;
-            RemoveDiscountButton.Enabled = enabled;
-        }
-
         /// <summary>
         /// Обновляет данные в ListBox.
         /// </summary>
@@ -90,8 +89,6 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 CustomersListBox.Items.Add(FormattedText(customer));
             }
-
-            if (selectedIndex == -1) AddressControl.Enabled = false;
 
             CustomersListBox.SelectedIndex = selectedIndex;
         }
@@ -144,7 +141,7 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void AddButton_Click(object sender, System.EventArgs e)
         {
-            Address address = new Address(111111, "country", "city", "street", "building", "apartament");
+            Address address = new Address(000000, "country", "city", "street", "building", "apartament");
             _currentCustomer = new Customer();
             _customers.Add(_currentCustomer);
             UpdateListBox(0);
@@ -154,12 +151,14 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             int index = CustomersListBox.SelectedIndex;
 
-            if (index == -1) return;
+            if (index == -1)
+            {
+                return;
+            }
 
             _customers.RemoveAt(index);
             UpdateListBox(-1);
             ClearCustomersInfo();
-            EnabledField(false);
         }
 
         private void CustomersListBox_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -168,14 +167,11 @@ namespace ObjectOrientedPractics.View.Tabs
 
             if (index == -1)
             {
-                EnabledField(false);
                 return;
             }
-            EnabledField(true);
 
             _currentCustomer = _customers[index];
             IsPriorityCheckBox.Checked = _currentCustomer.IsPriority;
-
             IDTextBox.Text = _currentCustomer.Id.ToString();
             FullNameTextBox.Text = _currentCustomer.FullName;
             AddressControl.Address = _currentCustomer.Address;
@@ -186,22 +182,28 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             int index = CustomersListBox.SelectedIndex;
 
-            if (index == -1) return;
-
-            try
+            if (index == -1)
             {
-                string name = FullNameTextBox.Text;
-                _currentCustomer.FullName = name;
-                int indexCustomer = FindIndexItemById();
-                UpdateListBox(indexCustomer);
-            }
-            catch
-            {
-                FullNameTextBox.BackColor = AppColor.WrongColor;
                 return;
             }
 
-            FullNameTextBox.BackColor = AppColor.CorrectColor;
+            try
+            {
+                FullNameTextBox.SelectionStart = FullNameTextBox.Text.Length;
+                _currentCustomer.FullName = FullNameTextBox.Text;
+                int indexCustomer = FindIndexItemById();
+                FullNameTextBox.BackColor = Color.CorrectColor;
+                UpdateListBox(indexCustomer);
+            }
+            catch (Exception exception)
+            {
+                _toolTip.SetToolTip(FullNameTextBox, exception.Message);
+                if (CustomersListBox.Items.Count != 0)
+                {
+                    FullNameTextBox.BackColor = Color.WrongColor;
+                }
+            }
+
         }
 
         private void IsPriorityCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -216,9 +218,16 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 foreach (var discount in _currentCustomer.Discounts)
                 {
-                    if (discount is PointsDiscount) continue;
-                    if (((PercentDiscount)discount).Category == 
-                        addDiscountForm.PercentDiscount.Category) return;
+                    if (discount is PointsDiscount)
+                    {
+                        continue;
+                    }
+
+                    if (((PercentDiscount) discount).Category ==
+                        addDiscountForm.PercentDiscount.Category)
+                    {
+                        return;
+                    }
                 }
                 _currentCustomer.Discounts.Add(addDiscountForm.PercentDiscount);
                 UpdateDiscountsListBox();
@@ -228,10 +237,20 @@ namespace ObjectOrientedPractics.View.Tabs
         private void RemoveDiscountButton_Click(object sender, EventArgs e)
         {
             int index = DiscountsListBox.SelectedIndex;
-            if (index == -1) return;
-            if (index == 0) return;
+
+            if (index == -1)
+            {
+                return;
+            }
+
+            if (index == 0)
+            {
+                return;
+            }
+
             _currentCustomer.Discounts.RemoveAt(index);
             UpdateDiscountsListBox();
         }
+
     }
 }

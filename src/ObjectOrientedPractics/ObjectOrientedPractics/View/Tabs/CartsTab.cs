@@ -6,6 +6,7 @@ using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Model.Orders;
 using ObjectOrientedPractics.Model.Discounts;
+using ObjectOrientedPractics.Model.Enums;
 
 namespace ObjectOrientedPractics.View.Tabs
 {
@@ -98,12 +99,16 @@ namespace ObjectOrientedPractics.View.Tabs
             }
             TotalDigitLabel.Text = (CurrentCustomer.Cart.Amount - discountAmount).ToString();
         }
+
         /// <summary>
         /// Обновляет данные в списках.
         /// </summary>
         public void RefreshData()
         {
-            if (_customers.Count == 0) return;
+            if (_customers.Count == 0)
+            {
+                return;
+            }
 
             UpdateItemsListBox(-1);
 
@@ -162,11 +167,8 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateCartListBox(int selectedIndex)
         {
             CartListBox.Items.Clear();
-
-            var orderedListItems = from item in CurrentCustomer.Cart.CartItems
-                                   orderby item.Name
-                select item;
-
+            var orderedListItems = 
+                from item in CurrentCustomer.Cart.CartItems orderby item.Name select item;
             CurrentCustomer.Cart.CartItems = orderedListItems.ToList();
 
             foreach (Item item in CurrentCustomer.Cart.CartItems)
@@ -175,7 +177,6 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             CartListBox.SelectedIndex = selectedIndex;
-
             CreateOrderButton.Enabled = false;
         }
 
@@ -192,12 +193,18 @@ namespace ObjectOrientedPractics.View.Tabs
         private void CustomerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = CustomerComboBox.SelectedIndex;
-            
-            if (index == -1) return;
+
+            if (index == -1)
+            {
+                return;
+            }
 
             CurrentCustomer = _customers[index];
 
-            if (CurrentCustomer.Cart.CartItems == null) return;
+            if (CurrentCustomer.Cart.CartItems == null)
+            {
+                return;
+            }
 
             AmountDigitLabel.Text = CurrentCustomer.Cart.Amount.ToString();
             UpdateCartListBox(-1);
@@ -209,12 +216,13 @@ namespace ObjectOrientedPractics.View.Tabs
             int indexListBox = ItemsListBox.SelectedIndex;
             int indexComboBox = CustomerComboBox.SelectedIndex;
 
-            if (indexListBox == -1 || indexComboBox == -1) return;
+            if (indexListBox == -1 || indexComboBox == -1)
+            {
+                return;
+            }
 
             CurrentCustomer.Cart.CartItems.Add(_items[indexListBox]);
-
             AmountDigitLabel.Text = CurrentCustomer.Cart.Amount.ToString();
-
             UpdateCartListBox(-1);
             CreateOrderButton.Enabled = true;
             UpdateDiscountDigit();
@@ -225,11 +233,13 @@ namespace ObjectOrientedPractics.View.Tabs
             int indexComboBox = CustomerComboBox.SelectedIndex;
             int indexListBox = CartListBox.SelectedIndex;
 
-            if (indexListBox == -1 || indexComboBox == -1) return;
+            if (indexListBox == -1 || indexComboBox == -1)
+            {
+                return;
+            }
 
             CurrentCustomer.Cart.CartItems.RemoveAt(indexListBox);
             AmountDigitLabel.Text = CurrentCustomer.Cart.Amount.ToString();
-
             UpdateCartListBox(-1);
             UpdateDiscountDigit();
         }
@@ -245,6 +255,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void CreateOrderButton_Click(object sender, EventArgs e)
         {
             Order order;
+
             if (CurrentCustomer.IsPriority)
             {
                 order = new PriorityOrder();

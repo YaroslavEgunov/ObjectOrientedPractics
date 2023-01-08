@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ObjectOrientedPractics.Model;
 using Newtonsoft.Json;
+using ObjectOrientedPractics.Model.Enums;
 
 namespace ObjectOrientedPractics.Model.Orders
 {
