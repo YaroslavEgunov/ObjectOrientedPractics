@@ -19,19 +19,14 @@ namespace ObjectOrientedPractics.Model.Discounts
         private int _points;
 
         /// <summary>
-        /// Создает экземпляр класса <see cref="PointsDiscount"/>
-        /// </summary>
-        public PointsDiscount()
-        {
-
-        }
-
-        /// <summary>
         /// Возвращает и задает накопительную скидку. Должно быть не меньше нуля.
         /// </summary>
         public int Points
         {
-            get => _points;
+            get
+            {
+                return _points;
+            }
             set
             {
                 Validator.AssertIntValueInRange(value, 0, 2147483647, nameof(Points));
@@ -58,14 +53,17 @@ namespace ObjectOrientedPractics.Model.Discounts
         public double Calculate(List<Item> items)
         {
             double amount = 0;
+
             foreach (var item in items)
             {
                 amount += item.Cost;
             }
+
             if (_points <= (int) (amount * 0.3))
             {
                 return _points;
             }
+
             if (_points > (int)(amount * 0.3))
             {
                 return Math.Ceiling(amount * 0.3);
@@ -93,12 +91,21 @@ namespace ObjectOrientedPractics.Model.Discounts
         public void Update(List<Item> items)
         {
             double amount = 0;
+
             foreach (var item in items)
             {
                 amount += item.Cost;
             }
 
             _points += (int)Math.Ceiling(amount * 0.1);
+        }
+
+        /// <summary>
+        /// Создает экземпляр класса <see cref="PointsDiscount"/>
+        /// </summary>
+        public PointsDiscount()
+        {
+
         }
     }
 }

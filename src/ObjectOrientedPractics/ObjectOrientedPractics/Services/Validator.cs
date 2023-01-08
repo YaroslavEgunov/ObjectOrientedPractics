@@ -51,14 +51,15 @@ namespace ObjectOrientedPractics.Services
         }
 
         /// <summary>
-        /// Проверят, меньше ли строка введённого значения. 
+        /// Проверяет, входит ли целочисленное значение в заданный диапазон.
         /// </summary>
-        /// <param name="string">Строка, которую проверяют.</param>
-        /// <param name="value">Значение, не больше которого должна быть строка.</param>
-        /// <param name="fieldName">Имя свойства или объекта, 
+        /// <param name="value">Значение, которое нужно проверить.</param>
+        /// <param name="min">Нижняя граница.</param>
+        /// <param name="max">Верхняя граница.</param>
+        /// <param name="fieldName">Имя свойства или объекта,
         /// которое подлежит проверке.</param>
-        /// <exception cref="ArgumentException">Возникает, 
-        /// если количество символов больше введёного значения.</exception>
+        /// <exception cref="ArgumentException">
+        /// Возникает, если введённое значение вне диапазона.</exception>
         public static void AssertIntValueInRange
             (int value, double min, double max, string fieldName)
         {

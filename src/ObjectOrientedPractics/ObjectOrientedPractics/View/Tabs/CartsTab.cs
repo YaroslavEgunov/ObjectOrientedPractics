@@ -111,8 +111,8 @@ namespace ObjectOrientedPractics.View.Tabs
             }
 
             UpdateItemsListBox(-1);
-
             CustomerComboBox.Items.Clear();
+
             foreach (var customer in _customers)
             {
                 CustomerComboBox.Items.Add(customer.FullName);
@@ -136,11 +136,9 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateItemsListBox(int selectedIndex)
         {
             ItemsListBox.Items.Clear();
-
             var orderedListItems = from item in _items
                 orderby item.Name
                 select item;
-
             _items = orderedListItems.ToList();
 
             foreach (Item item in _items)
@@ -154,6 +152,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateDiscountCheckedListBox()
         {
             DiscountCheckedListBox.Items.Clear();
+
             foreach (var discount in CurrentCustomer.Discounts)
             {
                 DiscountCheckedListBox.Items.Add(discount.Info, true);
@@ -269,6 +268,7 @@ namespace ObjectOrientedPractics.View.Tabs
             order.Items = CurrentCustomer.Cart.CartItems;
             order.Status = OrderStatus.New;
             double discountAmount = 0;
+
             for (int i = 0; i < DiscountCheckedListBox.Items.Count; i++)
             {
                 if (DiscountCheckedListBox.GetItemChecked(i))
@@ -276,6 +276,7 @@ namespace ObjectOrientedPractics.View.Tabs
                     discountAmount += CurrentCustomer.Discounts[i].Calculate(CurrentCustomer.Cart.CartItems);
                 }
             }
+
             order.DiscountAmount = discountAmount;
             CurrentCustomer.Orders.Add(order);
 
@@ -287,8 +288,8 @@ namespace ObjectOrientedPractics.View.Tabs
                 }
                 CurrentCustomer.Discounts[i].Update(CurrentCustomer.Cart.CartItems);
             }
-            UpdateDiscountCheckedListBox();
 
+            UpdateDiscountCheckedListBox();
             CurrentCustomer.Cart = new Cart();
             UpdateCartListBox(-1);
             AmountDigitLabel.Text = CurrentCustomer.Cart.Amount.ToString();

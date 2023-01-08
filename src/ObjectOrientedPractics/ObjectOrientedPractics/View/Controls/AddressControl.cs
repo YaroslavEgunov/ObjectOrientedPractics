@@ -28,7 +28,6 @@ namespace ObjectOrientedPractics.View.Controls
         public AddressControl()
         {
             _address = new Address();
-            
             InitializeComponent();
         }
 
@@ -158,7 +157,6 @@ namespace ObjectOrientedPractics.View.Controls
             StreetTextBox.Clear();
             BuildingTextBox.Clear();
             ApartamentTextBox.Clear();
-
             PostIndexTextBox.BackColor = AppColor.CorrectColor;
         }
     }

@@ -50,7 +50,10 @@ namespace ObjectOrientedPractics.View.Tabs
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<Customer> Customers
         {
-            get => _customers;
+            get
+            {
+                return _customers;
+            }
             set
             {
                 _customers = value;
@@ -82,7 +85,6 @@ namespace ObjectOrientedPractics.View.Tabs
             var orderedListItems = from customer in _customers
                 orderby customer.FullName  
                 select customer;
-
             _customers = orderedListItems.ToList();
 
             foreach (Customer customer in _customers)
@@ -102,7 +104,6 @@ namespace ObjectOrientedPractics.View.Tabs
             var orderedListItems = from customer in _customers
                 orderby customer.FullName
                 select customer;
-
             _customers = orderedListItems.ToList();
             int currentCustomerId = _currentCustomer.Id;
             int index = -1;
@@ -141,7 +142,8 @@ namespace ObjectOrientedPractics.View.Tabs
 
         private void AddButton_Click(object sender, System.EventArgs e)
         {
-            Address address = new Address(000000, "country", "city", "street", "building", "apartament");
+            Address address = new Address
+                (000000, "country", "city", "street", "building", "apartament");
             _currentCustomer = new Customer();
             _customers.Add(_currentCustomer);
             UpdateListBox(0);
@@ -214,6 +216,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void AddDiscountButton_Click(object sender, EventArgs e)
         {
             AddDiscountForm addDiscountForm = new AddDiscountForm();
+
             if (addDiscountForm.ShowDialog() == DialogResult.OK)
             {
                 foreach (var discount in _currentCustomer.Discounts)
@@ -229,6 +232,7 @@ namespace ObjectOrientedPractics.View.Tabs
                         return;
                     }
                 }
+
                 _currentCustomer.Discounts.Add(addDiscountForm.PercentDiscount);
                 UpdateDiscountsListBox();
             }

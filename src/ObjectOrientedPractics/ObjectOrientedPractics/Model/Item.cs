@@ -115,6 +115,7 @@ namespace ObjectOrientedPractics.Model
             Cost = _cost;
             Category = category;
         }
+
         /// <summary>
         /// Создает экземпляр класса <see cref="Item"/>.
         /// </summary>

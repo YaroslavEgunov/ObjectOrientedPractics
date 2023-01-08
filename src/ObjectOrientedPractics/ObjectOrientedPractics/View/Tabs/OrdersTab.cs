@@ -39,14 +39,14 @@ namespace ObjectOrientedPractics.View.Tabs
         public OrdersTab()
         {
             InitializeComponent();
-
             _orders = new List<Order>();
-
             var orderStatusValues = Enum.GetValues(typeof(OrderStatus));
+
             foreach (var value in orderStatusValues)
             {
                 StatusComboBox.Items.Add(value);
             }
+
             foreach (var time in _deliveryTime)
             {
                 DeliveryTimeComboBox.Items.Add(time);
@@ -85,14 +85,17 @@ namespace ObjectOrientedPractics.View.Tabs
             foreach (var customer in _customers)
             {
                 Address address = customer.Address;
-                string fullAddress = $"{address.Index}, {address.Country}, {address.City}," +
-                                     $" {address.Street}, {address.Building}, {address.Apartament}";
+                string fullAddress = $"{address.Index}, {address.Country}, " +
+                                     $"{address.City}," + $" {address.Street}, " +
+                                     $"{address.Building}, {address.Apartament}";
 
                 foreach (var order in customer.Orders)
                 {
                     _orders.Add(order);
-                    OrdersDataGridView.Rows.Add(order.OrdersId.ToString(), order.Total.ToString(), order.DateOfCreate, 
-                        order.Status, customer.FullName, fullAddress, order.Amount.ToString());
+                    OrdersDataGridView.Rows.Add
+                        (order.OrdersId.ToString(), order.Total.ToString(), 
+                            order.DateOfCreate, order.Status, customer.FullName, 
+                            fullAddress, order.Amount.ToString());
                 }
             }
         }
@@ -107,22 +110,30 @@ namespace ObjectOrientedPractics.View.Tabs
             AmountDigitLabel.Text = _currentOrder.Amount.ToString();
             TotalAmountDigitLabel.Text = _currentOrder.Total.ToString();
             OrderItemsListBox.Items.Clear();
+
             foreach (var item in _currentOrder.Items)
             {
                 OrderItemsListBox.Items.Add(item.Name);
             }
+
             if (_currentOrder is PriorityOrder priority)
             {
-                DeliveryTimeComboBox.SelectedIndex = Array.IndexOf(_deliveryTime, _currentPriorityOrder.DeliveryTime);
+                DeliveryTimeComboBox.SelectedIndex = 
+                    Array.IndexOf(_deliveryTime, _currentPriorityOrder.DeliveryTime);
             }
         }
 
         private void OrdersDataGridView_SelectionChanged(object sender, EventArgs e)
         {
             int index = OrdersDataGridView.CurrentCell.RowIndex;
-            if (index == -1) return;
+
+            if (index == -1)
+            {
+                return;
+            }
 
             _currentOrder = _orders[index];
+
             if (_currentOrder is PriorityOrder priority)
             {
                 _currentPriorityOrder = (PriorityOrder) _orders[index];
@@ -133,15 +144,16 @@ namespace ObjectOrientedPractics.View.Tabs
                 PriorityOptionsPanel.Visible = false;
                 _currentPriorityOrder = null;
             }
+
             SetValueInTextBoxes();
         }
 
         private void StatusComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = OrdersDataGridView.CurrentCell.RowIndex;
-
             _currentOrder.Status = (OrderStatus) StatusComboBox.SelectedIndex;
-            OrdersDataGridView.Rows[index].Cells[3].Value = (OrderStatus) StatusComboBox.SelectedIndex;
+            OrdersDataGridView.Rows[index].Cells[3].Value = 
+                (OrderStatus) StatusComboBox.SelectedIndex;
         }
 
         private void DeliveryTimeComboBox_SelectedIndexChanged(object sender, EventArgs e)

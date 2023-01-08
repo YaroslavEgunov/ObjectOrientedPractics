@@ -118,7 +118,10 @@ namespace ObjectOrientedPractics.Model.Orders
             {
                 _amount = 0;
 
-                if (_items == null) return _amount;
+                if (_items == null)
+                {
+                    return _amount;
+                }
 
                 foreach (var item in _items)
                 {

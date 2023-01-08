@@ -38,6 +38,7 @@ namespace ObjectOrientedPractics.View.Tabs
             InitializeComponent();
             _items = Items;
             CategoryComboBox.DataSource = Enum.GetValues(typeof(Category));
+
             if (ItemsListBox.Items.Count != 0)
             {
                 ItemsListBox.SelectedIndex = 0;
@@ -103,14 +104,16 @@ namespace ObjectOrientedPractics.View.Tabs
             var orderedListItems = from item in _items
                 orderby item.Name
                 select item;
-
             _items = orderedListItems.ToList();
             int currentItemId = _currentItem.Id;
             int index = -1;
 
             for (int i = 0; i < _items.Count; i++)
             {
-                if (_items[i].Id != currentItemId) continue;
+                if (_items[i].Id != currentItemId)
+                {
+                    continue;
+                }
 
                 index = i;
                 break;
@@ -140,7 +143,10 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             int index = ItemsListBox.SelectedIndex;
 
-            if (index == -1) return;
+            if (index == -1)
+            {
+                return;
+            }
 
             _items.RemoveAt(index);
             UpdateListBox(-1);
@@ -152,10 +158,12 @@ namespace ObjectOrientedPractics.View.Tabs
         {
             int index = ItemsListBox.SelectedIndex;
 
-            if (index == -1) return;
+            if (index == -1)
+            {
+                return;
+            }
 
             _currentItem = _items[index];
-
             IDTextBox.Text = _currentItem.Id.ToString();
             CostTextBox.Text = _currentItem.Cost.ToString();
             NameTextBox.Text = _currentItem.Name;
@@ -199,8 +207,6 @@ namespace ObjectOrientedPractics.View.Tabs
                 _toolTip.SetToolTip(NameTextBox, exception.Message);
                 NameTextBox.BackColor = Color.WrongColor;
             }
-
-
         }
 
         private void DescriptionTextBox_TextChanged(object sender, EventArgs e)

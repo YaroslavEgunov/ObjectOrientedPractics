@@ -161,6 +161,5 @@ namespace ObjectOrientedPractics.Model
             Discounts = new List<IDiscount>();
             Discounts.Add(new PointsDiscount());
         }
-
     }
 }

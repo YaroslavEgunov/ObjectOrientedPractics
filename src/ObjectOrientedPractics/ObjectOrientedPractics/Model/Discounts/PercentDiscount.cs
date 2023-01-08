@@ -52,6 +52,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         public double Calculate(List<Item> items)
         {
             double amount = 0;
+
             foreach (Item item in items)
             {
                 if (item.Category == Category)
@@ -80,6 +81,7 @@ namespace ObjectOrientedPractics.Model.Discounts
         public void Update(List<Item> items)
         {
             double amount = 0;
+
             foreach (Item item in items)
             {
                 if (item.Category == Category)
@@ -87,8 +89,10 @@ namespace ObjectOrientedPractics.Model.Discounts
                     amount += item.Cost;
                 }
             }
+
             PurchaseAmount += amount;
             int newDiscountPercent = (int)(PurchaseAmount / 1000);
+
             if (newDiscountPercent <= 10 && newDiscountPercent != 0)
             {
                 CurrentPercentDiscount = newDiscountPercent;

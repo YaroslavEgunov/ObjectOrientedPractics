@@ -22,29 +22,6 @@ namespace ObjectOrientedPractics.Model.Orders
         private string _deliveryTime;
 
         /// <summary>
-        /// Создаёт экземпляр класса <see cref="PriorityOrder"/>.
-        /// </summary>
-        public PriorityOrder()
-        {
-
-        }
-
-        /// <summary>
-        /// Создаёт экземпляр класса <see cref="PriorityOrder"/>.
-        /// </summary>
-        /// <param name="status">Статус заказа.</param>
-        /// <param name="address">Адрес.</param>
-        /// <param name="items">Товары заказа.</param>
-        /// <param name="deliveryDate">Дата доставки.</param>
-        /// <param name="deliveryTime">Время доставки.</param>
-        public PriorityOrder(OrderStatus status, Address address, List<Item> items, DateTime deliveryDate,
-            string deliveryTime) : base(status, address, items)
-        {
-            DeliveryDate = deliveryDate;
-            DeliveryTime = deliveryTime;
-        }
-
-        /// <summary>
         /// Возвращает и задает дату доставки. 
         /// </summary>
         public DateTime DeliveryDate
@@ -72,6 +49,30 @@ namespace ObjectOrientedPractics.Model.Orders
             {
                 _deliveryTime = value;
             }
+        }
+
+
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="PriorityOrder"/>.
+        /// </summary>
+        public PriorityOrder()
+        {
+
+        }
+
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="PriorityOrder"/>.
+        /// </summary>
+        /// <param name="status">Статус заказа.</param>
+        /// <param name="address">Адрес.</param>
+        /// <param name="items">Товары заказа.</param>
+        /// <param name="deliveryDate">Дата доставки.</param>
+        /// <param name="deliveryTime">Время доставки.</param>
+        public PriorityOrder(OrderStatus status, Address address, List<Item> items, DateTime deliveryDate,
+            string deliveryTime) : base(status, address, items)
+        {
+            DeliveryDate = deliveryDate;
+            DeliveryTime = deliveryTime;
         }
     }
 }
