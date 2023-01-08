@@ -21,10 +21,12 @@ namespace ObjectOrientedPractics.View.Forms
         {
             InitializeComponent();
             var categoryValues = Enum.GetValues(typeof(Category));
+
             foreach (var value in categoryValues)
             {
                 CategoryComboBox.Items.Add(value);
             }
+
             CategoryComboBox.SelectedIndex = 0;
         }
 

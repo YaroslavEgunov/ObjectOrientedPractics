@@ -51,15 +51,6 @@ namespace ObjectOrientedPractics.Model.Orders
             }
         }
 
-
-        /// <summary>
-        /// Создаёт экземпляр класса <see cref="PriorityOrder"/>.
-        /// </summary>
-        public PriorityOrder()
-        {
-
-        }
-
         /// <summary>
         /// Создаёт экземпляр класса <see cref="PriorityOrder"/>.
         /// </summary>
@@ -68,11 +59,20 @@ namespace ObjectOrientedPractics.Model.Orders
         /// <param name="items">Товары заказа.</param>
         /// <param name="deliveryDate">Дата доставки.</param>
         /// <param name="deliveryTime">Время доставки.</param>
-        public PriorityOrder(OrderStatus status, Address address, List<Item> items, DateTime deliveryDate,
+        public PriorityOrder(OrderStatus status, Address address, 
+            List<Item> items, DateTime deliveryDate, 
             string deliveryTime) : base(status, address, items)
         {
             DeliveryDate = deliveryDate;
             DeliveryTime = deliveryTime;
+        }
+
+        /// <summary>
+        /// Создаёт экземпляр класса <see cref="PriorityOrder"/>.
+        /// </summary>
+        public PriorityOrder()
+        {
+
         }
     }
 }

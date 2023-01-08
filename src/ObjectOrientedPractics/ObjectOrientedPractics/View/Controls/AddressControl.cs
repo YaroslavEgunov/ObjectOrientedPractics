@@ -80,7 +80,6 @@ namespace ObjectOrientedPractics.View.Controls
             {
                 Address.Country = CountryTextBox.Text;
                 CountryTextBox.BackColor = AppColor.CorrectColor;
-
             }
             catch (Exception exception)
             {

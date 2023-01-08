@@ -28,15 +28,6 @@ namespace ObjectOrientedPractics.View
             OrdersTab.Customers = _store.Customers;
         }
 
-        private void ItemsTab_ItemsChanged(object sender, System.EventArgs args)
-        {
-            CartsTab.Items = ItemsTab.Items;
-            CartsTab.Customers = CustomersTab.Customers;
-            OrdersTab.Customers = CartsTab.Customers;
-            OrdersTab.RefreshData();
-            CartsTab.RefreshData();
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
@@ -54,10 +45,6 @@ namespace ObjectOrientedPractics.View
                 OrdersTab.Customers = CartsTab.Customers;
                 OrdersTab.RefreshData();
             }
-            //else if (TabControl.SelectedIndex == 5)
-            //{
-            //    DiscountsTab.Items = ItemsTab.Items;
-            //}
         }
     }
 }

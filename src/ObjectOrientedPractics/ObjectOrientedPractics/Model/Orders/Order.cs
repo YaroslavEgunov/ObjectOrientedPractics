@@ -145,7 +145,7 @@ namespace ObjectOrientedPractics.Model.Orders
         /// Создает экземпляр класса <see cref="Order"/>. 
         /// </summary>
         /// <param name="status">Статус заказа.</param>
-        /// <param name="address">Адрес.</param>
+        /// <param name="deliveryAddres">Адрес.</param>
         /// <param name="items">Товары.</param>
         public Order(OrderStatus status, Address deliveryAddres, List<Item> items)
         {

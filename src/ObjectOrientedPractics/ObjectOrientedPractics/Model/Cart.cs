@@ -45,14 +45,17 @@ namespace ObjectOrientedPractics.Model
             get
             {
                 double amount = 0;
+
                 if (_cartItems == null)
                 {
                     return amount;
                 }
+
                 for (int i = 0; i < _cartItems.Count; i++)
                 {
                     amount += _cartItems[i].Cost;
                 }
+
                 return amount;
             }
         }

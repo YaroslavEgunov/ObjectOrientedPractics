@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
-using ObjectOrientedPractics.Model;
 using ObjectOrientedPractics.Model.Orders;
 using ObjectOrientedPractics.Model.Discounts;
 using ObjectOrientedPractics.Model.Enums;
@@ -84,6 +83,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void UpdateDiscountDigit()
         {
             double discountAmount = 0;
+
             for (int i = 0; i < DiscountCheckedListBox.Items.Count; i++)
             {
                 if (DiscountCheckedListBox.GetItemChecked(i))
@@ -91,12 +91,15 @@ namespace ObjectOrientedPractics.View.Tabs
                     discountAmount += CurrentCustomer.Discounts[i].Calculate(CurrentCustomer.Cart.CartItems);
                 }
             }
+
             DiscountAmountDigitLabel.Text = discountAmount.ToString();
+
             if (CurrentCustomer.Cart.Amount == 0)
             {
                 TotalDigitLabel.Text = CurrentCustomer.Cart.Amount.ToString();
                 return;
             }
+
             TotalDigitLabel.Text = (CurrentCustomer.Cart.Amount - discountAmount).ToString();
         }
 
@@ -126,6 +129,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 CustomerComboBox.SelectedIndex = -1;
             }
+
             UpdateDiscountDigit();
         }
 

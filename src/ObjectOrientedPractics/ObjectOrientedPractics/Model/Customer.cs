@@ -129,7 +129,7 @@ namespace ObjectOrientedPractics.Model
         /// <summary>
         /// Создаёт экземпляр класса <see cref="Customer"/>.
         /// </summary>
-        /// <param name="Fullname">Полное имя. Должно быть не более 200 символов.</param>
+        /// <param name="FullName">Полное имя. Должно быть не более 200 символов.</param>
         /// <param name="Address">Адрес.</param>
         /// <param name="Cart">Корзина покупателя.</param>
         /// <param name="Orders">Коллекция заказов.</param>

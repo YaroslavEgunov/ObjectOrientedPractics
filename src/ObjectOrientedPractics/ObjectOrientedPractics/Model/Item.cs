@@ -106,7 +106,7 @@ namespace ObjectOrientedPractics.Model
         /// <param name="Name">Название товара. Должно быть меньше 200 символов.</param>
         /// <param name="Info">Описание товара. Должно быть меньше 1000 символов.</param>
         /// <param name="Cost">Цена товара. Должна быть в пределах от 0 до 100 000.</param>
-        /// <param name="Category">Категория товара.</param>
+        /// <param name="category">Категория товара.</param>
         public Item(int Id, string Name, string Info, double Cost, Category category)
         {
             _itemsId = IdGenerator.GetNextItemsId();

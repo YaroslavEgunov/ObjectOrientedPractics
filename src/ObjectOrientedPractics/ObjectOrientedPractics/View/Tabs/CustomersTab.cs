@@ -110,7 +110,10 @@ namespace ObjectOrientedPractics.View.Tabs
 
             for (int i = 0; i < _customers.Count; i++)
             {
-                if (_customers[i].Id != currentCustomerId) continue;
+                if (_customers[i].Id != currentCustomerId)
+                {
+                    continue;
+                }
 
                 index = i;
                 break;
@@ -143,7 +146,7 @@ namespace ObjectOrientedPractics.View.Tabs
         private void AddButton_Click(object sender, System.EventArgs e)
         {
             Address address = new Address
-                (000000, "country", "city", "street", "building", "apartament");
+                (100000, "country", "city", "street", "building", "apartament");
             _currentCustomer = new Customer();
             _customers.Add(_currentCustomer);
             UpdateListBox(0);
