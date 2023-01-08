@@ -133,7 +133,7 @@ namespace ObjectOrientedPractics.Model.Orders
         /// </summary>
         public Order()
         {
-            _dateOfCreate = DateTime.Today.ToString();
+            _dateOfCreate = DateTime.Now.ToString();
             _ordersId = IdGenerator.GetNextOrderId();
         }
 
@@ -148,7 +148,7 @@ namespace ObjectOrientedPractics.Model.Orders
             Status = status;
             DeliveryAddress = deliveryAddres;
             Items = items;
-            _dateOfCreate = DateTime.Today.ToString();
+            _dateOfCreate = DateTime.Now.ToString();
             _ordersId = IdGenerator.GetNextOrderId();
         }
     }

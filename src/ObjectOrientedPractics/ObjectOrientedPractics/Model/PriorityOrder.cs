@@ -48,8 +48,14 @@ namespace ObjectOrientedPractics.Model.Orders
         /// </summary>
         public DateTime DeliveryDate
         {
-            get => _deliveryDate;
-            set => _deliveryDate = value;
+            get
+            {
+                return _deliveryDate;
+            }
+            set
+            {
+                _deliveryDate = value;
+            } 
         }
 
         /// <summary>
@@ -57,8 +63,14 @@ namespace ObjectOrientedPractics.Model.Orders
         /// </summary>
         public string DeliveryTime
         {
-            get => _deliveryTime;
-            set => _deliveryTime = value;
+            get
+            {
+                return _deliveryTime;
+            }
+            set
+            {
+                _deliveryTime = value;
+            }
         }
     }
 }

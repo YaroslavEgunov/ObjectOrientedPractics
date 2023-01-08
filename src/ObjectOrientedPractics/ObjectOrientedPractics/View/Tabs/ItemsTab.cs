@@ -80,12 +80,9 @@ namespace ObjectOrientedPractics.View.Tabs
         /// <param name="selectedIndex">Выбранный элемент.</param>
         private void UpdateListBox(int selectedIndex)
         {
-            ItemsListBox.Items.Clear()
-                ;
-            var orderedListItems = from item in _items
-                orderby item.Name
-                select item;
-
+            ItemsListBox.Items.Clear();
+            var orderedListItems = 
+                from item in _items orderby item.Name select item;
             _items = orderedListItems.ToList();
 
             foreach (Item item in _items)
