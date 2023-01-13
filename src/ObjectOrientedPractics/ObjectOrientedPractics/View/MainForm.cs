@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using ObjectOrientedPractics.Model;
 
@@ -26,6 +27,16 @@ namespace ObjectOrientedPractics.View
             CartsTab.Items = _store.Items;
             CartsTab.Customers = _store.Customers;
             OrdersTab.Customers = _store.Customers;
+            ItemsTab.ItemsChanged += ItemsTab_ItemsChanged; 
+        }
+
+        private void ItemsTab_ItemsChanged(object sender, EventArgs e)
+        {
+            CartsTab.Items = ItemsTab.Items;
+            CartsTab.Customers = CustomersTab.Customers;
+            OrdersTab.Customers = CartsTab.Customers;
+            OrdersTab.RefreshData();
+            CartsTab.RefreshData();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

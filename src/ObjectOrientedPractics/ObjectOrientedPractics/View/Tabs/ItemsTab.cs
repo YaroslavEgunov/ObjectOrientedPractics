@@ -15,6 +15,8 @@ namespace ObjectOrientedPractics.View.Tabs
     /// </summary>
     public partial class ItemsTab : UserControl
     {
+        public event EventHandler<EventArgs> ItemsChanged;
+
         /// <summary>
         /// Показывает всплывающую подсказку.
         /// </summary>
@@ -137,6 +139,7 @@ namespace ObjectOrientedPractics.View.Tabs
             _items.Add(new Item());
             _currentItem = _items.Last();
             UpdateListBox(0);
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void RemoveButton_Click(object sender, System.EventArgs e)
@@ -150,8 +153,8 @@ namespace ObjectOrientedPractics.View.Tabs
 
             _items.RemoveAt(index);
             UpdateListBox(-1);
-
             ClearItemsInfo();
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void ItemsListBox_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -177,6 +180,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _currentItem.Cost = Convert.ToDouble(CostTextBox.Text);
                 CostTextBox.BackColor = Color.CorrectColor;
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception exception)
             {
@@ -201,6 +205,7 @@ namespace ObjectOrientedPractics.View.Tabs
                 _currentItem.Name = NameTextBox.Text;
                 int indexItem = FindIndexItemById();
                 UpdateListBox(indexItem);
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception exception)
             {
@@ -215,6 +220,7 @@ namespace ObjectOrientedPractics.View.Tabs
             {
                 _currentItem.Info = DescriptionTextBox.Text;
                 DescriptionTextBox.BackColor = Color.CorrectColor;
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception exception)
             {
@@ -232,6 +238,7 @@ namespace ObjectOrientedPractics.View.Tabs
                     return;
                 }
                 _currentItem.Category = (Category)CategoryComboBox.SelectedIndex;
+                ItemsChanged?.Invoke(this, EventArgs.Empty);
             }
             catch (Exception exception)
             {

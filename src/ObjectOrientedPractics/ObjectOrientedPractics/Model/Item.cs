@@ -15,6 +15,12 @@ namespace ObjectOrientedPractics.Model
     /// </summary>
     public class Item
     {
+        public event EventHandler<EventArgs> NameChanged;
+
+        public event EventHandler<EventArgs> CostChanged;
+
+        public event EventHandler<EventArgs> InfoChanged;
+
         /// <summary>
         /// Уникальный индетификатор.
         /// </summary>
@@ -63,7 +69,11 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 Validator.AssertStringOnLength(value, 200, nameof(Name));
-                _name = value;
+                if (_name != value)
+                {
+                    _name = value;
+                    NameChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -79,7 +89,11 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 Validator.AssertStringOnLength(value, 1000, nameof(Info));
-                _info = value;
+                if (_info != value)
+                {
+                    _info = value;
+                    InfoChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -95,7 +109,11 @@ namespace ObjectOrientedPractics.Model
             set
             {
                 Validator.AssertValueInRange(value, 0, 10000, nameof(Cost));
-                _cost = value;
+                if (_cost != value)
+                {
+                    _cost = value;
+                    CostChanged?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
