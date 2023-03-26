@@ -1,38 +1,45 @@
-﻿<Window x:Class="Contacts.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Contacts"
+        xmlns:ViewModel="clr-namespace:View.ViewModel" x:Class="Contacts.MainWindow"
         mc:Ignorable="d"
-        Title="Contacts" Height="604" Width="683" Icon="icons8-карточка-контакта-64.png" ResizeMode="NoResize">
-    <Grid Margin="0,0,0,2">
+        Title="Contacts" Height="408.944" Width="683" Icon="icons8-карточка-контакта-64.png" ResizeMode="NoResize">
+    <Window.DataContext>
+        <ViewModel:MainVM/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="211*"/>
             <RowDefinition Height="208*"/>
         </Grid.RowDefinitions>
-        <GroupBox Header="Edit Contact" Margin="15,15,341,47" Grid.RowSpan="2" Width="320" HorizontalAlignment="Left">
+        <GroupBox Header="Edit Contact" Margin="15,15,0,47" Grid.RowSpan="2" Width="320" HorizontalAlignment="Left">
             <StackPanel>
-                <Label Content="Name:"></Label>
-                <TextBox Height="26" TextWrapping="Wrap" Text="Смирнов Юрий" VerticalAlignment="Top" Margin="3,0,3,0"/>
-                <Label Content="PhoneNumber:"></Label>
-                <TextBox Height="26" TextWrapping="Wrap" Text="+7-962-776-88-03" VerticalAlignment="Top" Margin="3,0,3,0"/>
+                <Label Content="Name:"/>
+                <TextBox x:Name="NameTextBox" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Margin="3,0,3,0" Text="{Binding Contact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="PhoneNumber:"/>
+                <TextBox x:Name="PhoneNumberTextBox" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Margin="3,0,3,0" Text="{Binding Contact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Email:"/>
-                <TextBox Height="26" TextWrapping="Wrap" Text="gohag84667@maazios.com" VerticalAlignment="Top" Margin="3,0,3,0"/>
+                <TextBox x:Name="EmailTextBox" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Margin="3,0,3,0" Text="{Binding Contact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </GroupBox>
         <GroupBox Header="Read Contact" Margin="0,15,15,47" Grid.RowSpan="2" HorizontalAlignment="Right" Width="320">
             <StackPanel>
-                <Label Content="Name:" Margin="3,0,3,0"></Label>
-                <Label Content="Смирнов Юрий" FontWeight="Bold" Margin="3,0,3,0"/>
-                <Label Content="PhoneNumber:" Margin="3,0,3,0"></Label>
-                <Label Content="+7-962-776-88-03" FontWeight="Bold" Margin="3,0,3,0"></Label>
+                <Label Content="Name:" Margin="3,0,3,0"/>
+                <Label x:Name="NameLabel" Content="{Binding Contact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Margin="3,0,3,0" />
+                <Label Content="PhoneNumber:" Margin="3,0,3,0"/>
+                <Label x:Name="PhoneNumberLabel" Content="{Binding Contact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Margin="3,0,3,0"/>
                 <Label Content="Email:" Margin="3,0,3,0"/>
-                <Label Content="gohag84667@maazios.com" FontWeight="Bold" Margin="3,0,3,0"></Label>
+                <Label x:Name="EmailLabel" Content="{Binding Contact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Margin="3,0,3,0"/>
             </StackPanel>
         </GroupBox>
-        <Button Content="Button" Margin="0,0,95,15" Grid.Row="1" Height="25" VerticalAlignment="Bottom" RenderTransformOrigin="-1.92,0.72" HorizontalAlignment="Right" Width="75"/>
-        <Button Content="Button" Margin="0,0,15,15" Grid.Row="1" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="SaveButton" Content="Save" Margin="0,0,95,15" Grid.Row="1" Height="25" VerticalAlignment="Bottom" RenderTransformOrigin="-1.92,0.72" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="LoadButton" Content="Load" Margin="0,0,15,15" Grid.Row="1" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
 
     </Grid>
 </Window>
