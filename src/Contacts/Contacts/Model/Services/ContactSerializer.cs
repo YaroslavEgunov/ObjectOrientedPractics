@@ -14,91 +14,59 @@ namespace View.Model.Services
     /// </summary>
     public static class ContactSerializer
     {
-        /// <summary>
-        /// Возвращает и задает путь к файлу.
-        /// </summary>
-        public static string Filename { get; set; }
 
         /// <summary>
-        /// Создает экземпляр класса <see cref="ContactSerializer"/>.
+        /// Путь к файлу сохранения.
         /// </summary>
-        static ContactSerializer()
-        {
-            var myDocumentsFolder =
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                @"\Contacts\contacts.json";
-            Filename = myDocumentsFolder;
-        }
+        private static string _fileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Contacts\contacts.json";
 
         /// <summary>
-        /// Проверяет, существует ли папка, указанная в свойстве Filename, иначе создает её.
+        /// Метод, который проверяет существует ли файл. Если не существует, то создаёт.
         /// </summary>
-        public static void CreateDirectory()
+        private static void СheckFile()
         {
-            if (!Directory.Exists(Filename))
+            if (!Directory.Exists(_fileName))
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(Filename));
+                Directory.CreateDirectory(Path.GetDirectoryName(_fileName));
             }
         }
 
         /// <summary>
-        /// Сохраняет данные о контактах в файл.
+        /// Сохраняет все данные о контакте в файл.
         /// </summary>
-        /// <param name="contact">Данные о контакте, которые нужно сохранить.</param>
-        /// <exception cref="Exception">Возникает, 
-        /// если произошла ошибка при сохранении.</exception>
+        /// <param name="contact"></param>
         public static void SaveToFile(Contact contact)
         {
             try
             {
-                CreateDirectory();
-                var settings = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                };
-                JsonSerializer serializer = new JsonSerializer();
-                serializer = JsonSerializer.Create(settings);
-                using (StreamWriter sw = new StreamWriter(Filename))
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
-                    serializer.Serialize(writer, contact);
-                }
+                СheckFile();
+                StreamWriter streamWriter = new StreamWriter(_fileName);
+                var jsonContact = JsonConvert.SerializeObject(contact);
+                streamWriter.Write(jsonContact);
+                streamWriter.Close();
             }
-            catch
+            catch (Exception exception)
             {
-                throw new Exception($"An error occurred while saving data");
+                throw exception;
             }
         }
 
-        /// <summary>
-        /// Загружает данные из файла и передает их в список.
-        /// </summary>
-        /// <returns>Возвращает текущий контакт.</returns>
+        // <summary>
+        // Загружает данные из файла.
+        // </summary>
+        // <returns>Возвращает текущий контакт.</returns>
         public static Contact LoadFromFile()
         {
-            Contact contact = null;
-
-            try
-            {
-                CreateDirectory();
-                var settings = new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.All
-                };
-                JsonSerializer serializer = new JsonSerializer();
-                serializer = JsonSerializer.Create(settings);
-                using (StreamReader sr = new StreamReader(Filename))
-                using (JsonReader reader = new JsonTextReader(sr))
-                {
-                    contact = serializer.Deserialize<Contact>(reader);
-                }
-            }
-            catch
+            СheckFile();
+            StreamReader streamReader = new StreamReader(_fileName);
+            var data = streamReader.ReadToEnd();
+            var jsonContact = JsonConvert.DeserializeObject<Contact>(data);
+            streamReader.Close();
+            if (jsonContact == null)
             {
                 return new Contact();
             }
-
-            return contact;
+            return jsonContact;
         }
     }
 }
