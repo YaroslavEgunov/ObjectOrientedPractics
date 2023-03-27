@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Contacts.ViewModel
+namespace View.ViewModel
 {
-    public class SaveCommand : ICommand
+    /// <inheritdoc/>
+    public class RelayCommand : ICommand
     {
         /// <summary>
         /// Делегат, выполняющийся при вызове метода <see cref="Execute(object)"/>.
@@ -39,7 +40,7 @@ namespace Contacts.ViewModel
         /// <param name="execute">Команда на выполнение.</param>
         /// <param name="canExecute">Делегат проверки
         /// возможности выполнения команды.</param>
-        public SaveCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
         {
             this._execute = execute;
             this._canExecute = canExecute;
@@ -56,7 +57,7 @@ namespace Contacts.ViewModel
         }
 
         /// <summary>
-        /// Выполняет саму команду.
+        /// Выполняет логику команды.
         /// </summary>
         /// <param name="parameter"></param>
         public void Execute(object parameter)

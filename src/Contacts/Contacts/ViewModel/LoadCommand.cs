@@ -9,7 +9,41 @@ namespace Contacts.ViewModel
 {
     public class LoadCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        /// <summary>
+        /// Делегат, выполняющийся при вызове метода <see cref="Execute(object)"/>.
+        /// </summary>
+        private Action<object> _execute;
+
+        /// <summary>
+        /// Делегат, выполняющий проверку
+        /// может ли команда выполнится в текущий момент.
+        /// </summary>
+        private Func<object, bool> _canExecute;
+
+        /// <inheritdoc/>
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
+
+        /// <summary>
+        /// Создает экземпляр класса <see cref="RelayCommand"/>.
+        /// </summary>
+        /// <param name="execute">Команда на выполнение.</param>
+        /// <param name="canExecute">Делегат проверки
+        /// возможности выполнения команды.</param>
+        public LoadCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        {
+            this._execute = execute;
+            this._canExecute = canExecute;
+        }
 
         /// <summary>
         /// Определяет, может ли команда выполняться.
@@ -27,7 +61,7 @@ namespace Contacts.ViewModel
         /// <param name="parameter"></param>
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            this._execute(parameter);
         }
     }
 }

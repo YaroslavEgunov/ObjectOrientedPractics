@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using View.Model.Services;
 
 namespace View.ViewModel
 {
@@ -24,6 +25,47 @@ namespace View.ViewModel
         private Contact _contact = new Contact();
 
         /// <summary>
+        /// Команда сохранения контакта.
+        /// </summary>
+        private RelayCommand _saveCommand;
+
+        /// <summary>
+        /// Команда загрузки контакта.
+        /// </summary>
+        private RelayCommand _loadCommand;
+
+        /// <summary>
+        /// Команда на выполнение сохранения данных.
+        /// </summary>
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return _saveCommand ??
+                    (_saveCommand = new RelayCommand(obj =>
+                    {
+                        ContactSerializer.SaveToFile(_contact);
+                    }));
+            }
+        }
+
+        /// <summary>
+        /// Команда на выполнение сохранения данных.
+        /// </summary>
+        public RelayCommand LoadCommand
+        {
+            get
+            {
+                return _loadCommand ??
+                    (_loadCommand = new RelayCommand(obj =>
+                    {
+                        ContactSerializer.LoadFromFile();
+                    }));
+            }
+        }
+
+
+        /// <summary>
         /// Возвращает и задает имя контакта.
         /// </summary>
         public string Name
@@ -37,6 +79,7 @@ namespace View.ViewModel
                 if (value != _contact.Name)
                 {
                     _contact.Name = value;
+                    OnPropertyChanged(nameof(Name));
                 }
             }
         }
@@ -55,6 +98,7 @@ namespace View.ViewModel
                 if (value != _contact.PhoneNumber)
                 {
                     _contact.PhoneNumber = value;
+                    OnPropertyChanged(nameof(PhoneNumber));
                 }
             }
         }
@@ -73,6 +117,7 @@ namespace View.ViewModel
                 if (value != _contact.Email)
                 {
                     _contact.Email = value;
+                    OnPropertyChanged(nameof(Email));
                 }
             }
         }
@@ -91,8 +136,19 @@ namespace View.ViewModel
                 if (value != _contact)
                 {
                     _contact = value;
+                    OnPropertyChanged(nameof(Contact));
                 }
             }
+        }
+
+        /// <summary>
+        /// Зажигает событие.
+        /// </summary>
+        /// <param name="prop">Название свойства,
+        /// для которого зажигается событие.</param>
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
