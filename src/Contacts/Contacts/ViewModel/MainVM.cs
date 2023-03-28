@@ -1,5 +1,4 @@
 ﻿using Contacts.Model;
-using Contacts.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -59,7 +58,7 @@ namespace View.ViewModel
                 return _loadCommand ??
                     (_loadCommand = new RelayCommand(obj =>
                     {
-                        ContactSerializer.LoadFromFile();
+                        _contact = ContactSerializer.LoadFromFile();
                     }));
             }
         }
@@ -144,11 +143,11 @@ namespace View.ViewModel
         /// <summary>
         /// Зажигает событие.
         /// </summary>
-        /// <param name="prop">Название свойства,
+        /// <param name="propertyName">Название свойства,
         /// для которого зажигается событие.</param>
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
