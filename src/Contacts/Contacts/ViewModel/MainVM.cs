@@ -58,7 +58,7 @@ namespace View.ViewModel
                 return _loadCommand ??
                     (_loadCommand = new RelayCommand(obj =>
                     {
-                        _contact = ContactSerializer.LoadFromFile();
+                        Contact = ContactSerializer.LoadFromFile();
                     }));
             }
         }
