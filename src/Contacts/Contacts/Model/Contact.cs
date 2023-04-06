@@ -29,47 +29,18 @@ namespace Contacts.Model
         /// <summary>
         /// Возвращает и задает имя контакта.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
-        }
+        public string Name { get; set; }
+
 
         /// <summary>
         /// Возвращает и задает номер телефона контакта.
         /// </summary>
-        public string PhoneNumber
-        {
-            get
-            {
-                return _phoneNumber;
-            }
-            set
-            {
-                _phoneNumber = value;
-            }
-        }
+        public string PhoneNumber { get; set; }
 
         /// <summary>
         /// Возвращает и задает почту контакта.
         /// </summary>
-        public string Email
-        {
-            get
-            {
-                return _email;
-            }
-            set
-            {
-                _email = value;
-            }
-        }
+        public string Email { get; set; }
 
         /// <summary>
         /// Создает экземпляр класса <see cref="Contact"/>.

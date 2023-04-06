@@ -6,39 +6,34 @@
         xmlns:local="clr-namespace:Contacts"
         xmlns:ViewModel="clr-namespace:View.ViewModel" x:Class="Contacts.MainWindow"
         mc:Ignorable="d"
-        Title="Contacts" Height="408.944" Width="683" Icon="icons8-карточка-контакта-64.png" ResizeMode="NoResize">
+        Title="Contacts" Height="450" Width="550" Icon="MainWindowContact.png" ResizeMode="CanResize" MinWidth="550" MinHeight="450">
     <Window.DataContext>
         <ViewModel:MainVM/>
     </Window.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="211*"/>
-            <RowDefinition Height="208*"/>
-        </Grid.RowDefinitions>
-        <GroupBox Header="Edit Contact" Margin="15,15,0,47" Grid.RowSpan="2" Width="320" HorizontalAlignment="Left">
-            <StackPanel>
+    <Grid Margin="15">
+        <GroupBox Header="Edit Contact" HorizontalAlignment="Left" Padding="3" Width="250" Margin="0,0,0,31">
+            <StackPanel VerticalAlignment="Top">
                 <Label Content="Name:"/>
-                <TextBox x:Name="NameTextBox" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Margin="3,0,3,0" Text="{Binding Contact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Height="20" Text="{Binding Contact.Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="PhoneNumber:"/>
-                <TextBox x:Name="PhoneNumberTextBox" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Margin="3,0,3,0" Text="{Binding Contact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Height="20" Text="{Binding Contact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Content="Email:"/>
-                <TextBox x:Name="EmailTextBox" Height="26" TextWrapping="Wrap" VerticalAlignment="Top" Margin="3,0,3,0" Text="{Binding Contact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Height="20" Text="{Binding Contact.Email, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Read Contact" Margin="0,15,15,47" Grid.RowSpan="2" HorizontalAlignment="Right" Width="320">
-            <StackPanel>
-                <Label Content="Name:" Margin="3,0,3,0"/>
-                <Label x:Name="NameLabel" Content="{Binding Contact.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Margin="3,0,3,0" />
-                <Label Content="PhoneNumber:" Margin="3,0,3,0"/>
-                <Label x:Name="PhoneNumberLabel" Content="{Binding Contact.PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Margin="3,0,3,0"/>
-                <Label Content="Email:" Margin="3,0,3,0"/>
-                <Label x:Name="EmailLabel" Content="{Binding Contact.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontWeight="Bold" Margin="3,0,3,0"/>
+        <GroupBox Header="Read Contact" HorizontalAlignment="Right" Padding="3" Width="250" Margin="0,0,0,31">
+            <StackPanel VerticalAlignment="Top">
+                <Label Content="Name:"/>
+                <TextBlock Height="20" FontWeight="Bold" Text="{Binding Contact.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="PhoneNumber:"/>
+                <TextBlock Height="20" FontWeight="Bold" Text="{Binding Contact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Email:"/>
+                <TextBlock Height="20" FontWeight="Bold" Text="{Binding Contact.Email, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </GroupBox>
-        <Button x:Name="SaveButton" Content="Save" Margin="0,0,95,15" Grid.Row="1" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Command="{Binding SaveCommand}" />
-        <Button x:Name="LoadButton" Content="Load" Margin="0,0,15,15" Grid.Row="1" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Command="{Binding LoadCommand}"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Button Content="Save" Height="25" Width="75" Padding="3" Margin="3" Command="{Binding SaveCommand}"/>
+            <Button Content="Load" Height="25" Width="75" Padding="3" Command="{Binding LoadCommand}"/>
+        </StackPanel>
     </Grid>
 </Window>
