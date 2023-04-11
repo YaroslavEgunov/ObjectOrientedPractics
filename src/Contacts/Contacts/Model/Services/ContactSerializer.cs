@@ -18,7 +18,8 @@ namespace View.Model.Services
         /// <summary>
         /// Путь к файлу сохранения.
         /// </summary>
-        private static string _fileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Contacts\contacts.json";
+        private static string _fileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + 
+            @"\Contacts\contacts.json";
 
         /// <summary>
         /// Метод, который проверяет существует ли файл. Если не существует, то создаёт.

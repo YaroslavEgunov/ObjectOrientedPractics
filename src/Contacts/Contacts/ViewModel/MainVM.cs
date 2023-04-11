@@ -34,37 +34,6 @@ namespace View.ViewModel
         private RelayCommand _loadCommand;
 
         /// <summary>
-        /// Команда на выполнение сохранения данных.
-        /// </summary>
-        public RelayCommand SaveCommand
-        {
-            get
-            {
-                return _saveCommand ??
-                    (_saveCommand = new RelayCommand(obj =>
-                    {
-                        ContactSerializer.SaveToFile(_contact);
-                    }));
-            }
-        }
-
-        /// <summary>
-        /// Команда на выполнение сохранения данных.
-        /// </summary>
-        public RelayCommand LoadCommand
-        {
-            get
-            {
-                return _loadCommand ??
-                    (_loadCommand = new RelayCommand(obj =>
-                    {
-                        Contact = ContactSerializer.LoadFromFile();
-                    }));
-            }
-        }
-
-
-        /// <summary>
         /// Возвращает и задает имя контакта.
         /// </summary>
         public string Name
@@ -148,6 +117,36 @@ namespace View.ViewModel
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Команда на выполнение сохранения данных.
+        /// </summary>
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return _saveCommand ??
+                    (_saveCommand = new RelayCommand(obj =>
+                    {
+                        ContactSerializer.SaveToFile(_contact);
+                    }));
+            }
+        }
+
+        /// <summary>
+        /// Команда на выполнение сохранения данных.
+        /// </summary>
+        public RelayCommand LoadCommand
+        {
+            get
+            {
+                return _loadCommand ??
+                    (_loadCommand = new RelayCommand(obj =>
+                    {
+                        Contact = ContactSerializer.LoadFromFile();
+                    }));
+            }
         }
     }
 }

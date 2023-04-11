@@ -6,34 +6,42 @@
         xmlns:local="clr-namespace:Contacts"
         xmlns:ViewModel="clr-namespace:View.ViewModel" x:Class="Contacts.MainWindow"
         mc:Ignorable="d"
-        Title="Contacts" Height="450" Width="550" Icon="MainWindowContact.png" ResizeMode="CanResize" MinWidth="550" MinHeight="450">
+        Title="Contacts" Height="450" Width="550" Icon="ContactApp_24x24.png" ResizeMode="CanResize" MinWidth="550" MinHeight="450">
     <Window.DataContext>
         <ViewModel:MainVM/>
     </Window.DataContext>
     <Grid Margin="15">
-        <GroupBox Header="Edit Contact" HorizontalAlignment="Left" Padding="3" Width="250" Margin="0,0,0,31">
-            <StackPanel VerticalAlignment="Top">
-                <Label Content="Name:"/>
-                <TextBox Height="20" Text="{Binding Contact.Name, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Content="PhoneNumber:"/>
-                <TextBox Height="20" Text="{Binding Contact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Content="Email:"/>
-                <TextBox Height="20" Text="{Binding Contact.Email, UpdateSourceTrigger=PropertyChanged}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Edit Contact" Grid.Column="0" Grid.Row="0">
+            <StackPanel VerticalAlignment="Top" Margin="3">
+                <TextBlock Margin="3" Text="Name:"/>
+                <TextBox Margin="3" Height="20" Text="{Binding Contact.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Margin="3" Text="PhoneNumber:"/>
+                <TextBox Margin="3" Height="20" Text="{Binding Contact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Margin="3" Text="Email:"/>
+                <TextBox Margin="3" Height="20" Text="{Binding Contact.Email, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </GroupBox>
-        <GroupBox Header="Read Contact" HorizontalAlignment="Right" Padding="3" Width="250" Margin="0,0,0,31">
-            <StackPanel VerticalAlignment="Top">
-                <Label Content="Name:"/>
-                <TextBlock Height="20" FontWeight="Bold" Text="{Binding Contact.Name, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Content="PhoneNumber:"/>
-                <TextBlock Height="20" FontWeight="Bold" Text="{Binding Contact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Content="Email:"/>
-                <TextBlock Height="20" FontWeight="Bold" Text="{Binding Contact.Email, UpdateSourceTrigger=PropertyChanged}"/>
+        <GroupBox Header="Read Contact" Grid.Column="1" Grid.Row="0">
+            <StackPanel VerticalAlignment="Top" Margin="3">
+                <TextBlock Margin="3" Text="Name:"/>
+                <TextBlock Margin="3" Height="20" FontWeight="Bold" Text="{Binding Contact.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Margin="3" Text="PhoneNumber:"/>
+                <TextBlock Margin="3" Height="20" FontWeight="Bold" Text="{Binding Contact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Margin="3" Text="Email:"/>
+                <TextBlock Margin="3" Height="20" FontWeight="Bold" Text="{Binding Contact.Email, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </GroupBox>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Button Content="Save" Height="25" Width="75" Padding="3" Margin="3" Command="{Binding SaveCommand}"/>
-            <Button Content="Load" Height="25" Width="75" Padding="3" Command="{Binding LoadCommand}"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1" >
+            <Button Content="Save" Height="25" Width="75" Margin="3" Command="{Binding SaveCommand}"/>
+            <Button Content="Load" Height="25" Width="75" Margin="3" Command="{Binding LoadCommand}"/>
         </StackPanel>
     </Grid>
 </Window>
