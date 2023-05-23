@@ -15,64 +15,140 @@
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*" MinWidth="170"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*" MinWidth="350"/>
+            <ColumnDefinition 
+                Width="0.5*"
+                MinWidth="170"/>
+            <ColumnDefinition 
+                Width="Auto"/>
+            <ColumnDefinition 
+                Width="*" 
+                MinWidth="350"/>
         </Grid.ColumnDefinitions>
-        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3" HorizontalAlignment="Center" 
-                      VerticalAlignment="Stretch" Background="White"/>
-        <Grid Background="#f8f8f8" Grid.Column="0">
+        <GridSplitter 
+            Grid.Column="1" 
+            ShowsPreview="False" 
+            Width="3" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Stretch" 
+            Background="White"/>
+        <Grid 
+            Background="#f8f8f8" 
+            Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition 
+                    Height="Auto"/>
+                <RowDefinition 
+                    Height="*"/>
+                <RowDefinition 
+                    Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="8,8,8,0">
+            <Grid 
+                Grid.Row="0" 
+                Margin="8,8,8,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition 
+                        Width="Auto"/>
+                    <ColumnDefinition 
+                        Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Margin="3" Text="Find:"/>
-                <TextBox Grid.Column="1" Margin="3" Text=""/>
+                <TextBlock 
+                    Grid.Column="0" 
+                    Margin="3" 
+                    Text="Find:"/>
+                <TextBox 
+                    Grid.Column="1" 
+                    Margin="3" Text=""/>
             </Grid>
-            <Grid Grid.Row="1" Margin="8,0,8,0">
+            <Grid 
+                Grid.Row="1" 
+                Margin="8,0,8,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="17*"/>
-                    <RowDefinition Height="322*"/>
+                    <RowDefinition 
+                        Height="17*"/>
+                    <RowDefinition 
+                        Height="322*"/>
                 </Grid.RowDefinitions>
-                <ListBox x:Name="ContactsListBox" Margin="3" ItemsSource="{Binding Contacts}"
-                         SelectedItem="{Binding CurrentContact}" DisplayMemberPath="Name" Grid.RowSpan="2"/>
+                <ListBox 
+                    x:Name="ContactsListBox" 
+                    Margin="3" 
+                    ItemsSource="{Binding Contacts}"
+                    SelectedItem="{Binding CurrentContact}" 
+                    DisplayMemberPath="Name" 
+                    Grid.RowSpan="2"/>
             </Grid>
-            <Grid Grid.Row="2" Margin="8,0,8,8">
+            <Grid 
+                Grid.Row="2" 
+                Margin="8,0,8,8">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition 
+                        Width="*"/>
+                    <ColumnDefinition 
+                        Width="*"/>
+                    <ColumnDefinition 
+                        Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Add" Grid.Column="0" Height="25" Width="Auto" Margin="3"
-                        Command="{Binding AddCommand}"/>
-                <Button Content="Edit" Grid.Column="1" Height="25" Width="Auto" Margin="3"
-                        Command="{Binding EditCommand}"/>
-                <Button Content="Remove" Grid.Column="2" Height="25" Width="Auto" Margin="3"
-                        Command="{Binding RemoveCommand}"/>
+                <Button 
+                    Content="Add" 
+                    Grid.Column="0" 
+                    Height="25" 
+                    Width="Auto" 
+                    Margin="3"
+                    Command="{Binding AddCommand}"/>
+                <Button 
+                    Content="Edit" 
+                    Grid.Column="1" 
+                    Height="25" 
+                    Width="Auto" 
+                    Margin="3"
+                    Command="{Binding EditCommand}"/>
+                <Button 
+                    Content="Remove" 
+                    Grid.Column="2" 
+                    Height="25" 
+                    Width="Auto" 
+                    Margin="3"
+                    Command="{Binding RemoveCommand}"/>
             </Grid>
         </Grid>
         
-        <Grid Grid.Column="2" Margin="8">
+        <Grid 
+            Grid.Column="2" 
+            Margin="8">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition 
+                    Width="Auto"/>
+                <ColumnDefinition 
+                    Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="1" Orientation="Vertical">
-                <TextBlock Text="Name:" Margin="3"/>
-                <TextBox Margin="3" Text="{Binding CurrentContact.Name, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Phone Number:" Margin="3"/>
-                <TextBox Margin="3"  Text="{Binding CurrentContact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Email:" Margin="3"/>
-                <TextBox Margin="3" Text="{Binding CurrentContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Content="Apply" Height="25" Width="75" HorizontalAlignment="Left" Margin="3,50,3,3"/>
+            <StackPanel 
+                Grid.Column="1" 
+                Orientation="Vertical">
+                <TextBlock 
+                    Text="Name:" 
+                    Margin="3"/>
+                <TextBox 
+                    Margin="3" 
+                    Text="{Binding CurrentContact.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock 
+                    Text="Phone Number:" 
+                    Margin="3"/>
+                <TextBox 
+                    Margin="3"  
+                    Text="{Binding CurrentContact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock 
+                    Text="Email:" 
+                    Margin="3"/>
+                <TextBox 
+                    Margin="3" 
+                    Text="{Binding CurrentContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button 
+                    Content="Apply" 
+                    Height="25" 
+                    Width="75" 
+                    HorizontalAlignment="Left" Margin="3,50,3,3"/>
             </StackPanel>
-            <StackPanel Grid.Column="0">
+            <StackPanel 
+                Grid.Column="0">
                 <Image Source="/Resources/photo_placeholder_100x100.png" Width="100" Height="100" Margin="3, 25, 3, 3"/>
             </StackPanel>
         </Grid>
