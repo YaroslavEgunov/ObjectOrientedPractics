@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contacts.Model
+namespace View.Model
 {
     /// <summary>
     /// Хранит данные о контакте.

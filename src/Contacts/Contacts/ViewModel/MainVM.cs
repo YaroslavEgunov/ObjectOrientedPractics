@@ -1,4 +1,4 @@
-﻿using Contacts.Model;
+﻿using View.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +8,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using View.Model;
 using View.Model.Services;
 
 namespace View.ViewModel
@@ -55,6 +54,21 @@ namespace View.ViewModel
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private bool _applyIsVisible = false;
+
+        public bool ApplyIsVisible
+        {
+            get
+            {
+                return _applyIsVisible;
+            }
+            private set
+            {
+                _applyIsVisible = value;
+                OnPropertyChanged(nameof(ApplyIsVisible));
+            }
+        }
+
         /// <summary>
         /// Команда на выполнение добавления контакта.
         /// </summary>
@@ -67,6 +81,7 @@ namespace View.ViewModel
                     {
                         CurrentContact = new Contact();
                         Contacts.Add(CurrentContact);
+                        ApplyIsVisible = true;
                     }));
             }
         }
@@ -81,7 +96,7 @@ namespace View.ViewModel
                 return _applyCommand ??
                     (_applyCommand = new RelayCommand(obj =>
                     {
-
+                        ApplyIsVisible = false;
                     }));
             }
         }
@@ -100,6 +115,7 @@ namespace View.ViewModel
                        {
                            return;
                        }
+                       ApplyIsVisible = true;
                    }));
             }
         }

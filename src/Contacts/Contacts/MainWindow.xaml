@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Contacts" 
-        xmlns:ViewModel="clr-namespace:View.ViewModel" x:Class="Contacts.MainWindow"
+        xmlns:local="clr-namespace:View.ViewModel" 
+        xmlns:ViewModel="clr-namespace:View.ViewModel" 
+        x:Class="Contacts.MainWindow" 
+        d:DataContext="{d:DesignInstance Type=ViewModel:MainVM}"
         mc:Ignorable="d"
         Title="Contacts" Height="450" Width="550" 
         Icon="/Resources/ContactApp_24x24.png" 
@@ -13,6 +15,9 @@
     <Window.DataContext>
         <ViewModel:MainVM/>
     </Window.DataContext>
+    <Window.Resources>
+        <local:BoolToVisibilityConverter x:Key="Converter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition 
@@ -145,7 +150,10 @@
                     Content="Apply" 
                     Height="25" 
                     Width="75" 
-                    HorizontalAlignment="Left" Margin="3,50,3,3"/>
+                    HorizontalAlignment="Left" 
+                    Margin="3,50,3,3"
+                    Command="{Binding ApplyCommand}"
+                    Visibility="{Binding ApplyIsVisible, Converter={StaticResource Converter}}"/>
             </StackPanel>
             <StackPanel 
                 Grid.Column="0">

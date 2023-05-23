@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Contacts.Model;
+using View.Model;
 using Newtonsoft.Json;
 
 namespace View.Model.Services
