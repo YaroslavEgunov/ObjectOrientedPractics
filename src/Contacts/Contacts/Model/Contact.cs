@@ -11,7 +11,7 @@ namespace View.Model
     /// <summary>
     /// Хранит данные о контакте.
     /// </summary>
-    public class Contact : INotifyPropertyChanged
+    public class Contact : INotifyPropertyChanged, ICloneable
     {
         /// <summary>
         /// Имя контакта.
@@ -120,6 +120,11 @@ namespace View.Model
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }
