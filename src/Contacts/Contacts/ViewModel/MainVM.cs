@@ -1,11 +1,14 @@
 ﻿using Contacts.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using View.Model;
 using View.Model.Services;
 
 namespace View.ViewModel
@@ -15,138 +18,188 @@ namespace View.ViewModel
     /// </summary>
     public class MainVM : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Коллекция контактов.
+        /// </summary>
+        private ObservableCollection<Contact> _contacts =
+            new ObservableCollection<Contact>();
 
+        /// <summary>
+        /// Текущий контакт.
+        /// </summary>
+        private Contact _currentContact = new Contact();
+
+        /// <summary>
+        /// Команда добавления контакта.
+        /// </summary>
+        private RelayCommand _addCommand;
+
+        /// <summary>
+        /// Команда применения контакта.
+        /// </summary>
+        private RelayCommand _applyCommand;
+
+        /// <summary>
+        /// Команда удаления контакта.
+        /// </summary>
+        private RelayCommand _removeCommand;
+
+        /// <summary>
+        /// Команда изменения контакта.
+        /// </summary>
+        private RelayCommand _editCommand;
+
+        /// <summary>
+        /// Хранит событие на изменение.
+        /// Зажигается при изменении данных контакта.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Контакт.
+        /// Команда на выполнение добавления контакта.
         /// </summary>
-        private Contact _contact = new Contact();
-
-        /// <summary>
-        /// Команда сохранения контакта.
-        /// </summary>
-        private RelayCommand _saveCommand;
-
-        /// <summary>
-        /// Команда загрузки контакта.
-        /// </summary>
-        private RelayCommand _loadCommand;
-
-        /// <summary>
-        /// Возвращает и задает имя контакта.
-        /// </summary>
-        public string Name
+        public RelayCommand AddCommand
         {
             get
             {
-                return _contact.Name;
+                return _addCommand ??
+                    (_addCommand = new RelayCommand(obj =>
+                    {
+                        CurrentContact = new Contact();
+                        Contacts.Add(CurrentContact);
+                    }));
+            }
+        }
+
+        /// <summary>
+        /// Команда на выполнение применения контакта.
+        /// </summary>
+        public RelayCommand ApplyCommand
+        {
+            get
+            {
+                return _applyCommand ??
+                    (_applyCommand = new RelayCommand(obj =>
+                    {
+
+                    }));
+            }
+        }
+
+        /// <summary>
+        /// Команда на выполнение редактирования контакта.
+        /// </summary>
+        public RelayCommand EditCommand
+        {
+            get
+            {
+                return _editCommand ??
+                   (_editCommand = new RelayCommand(obj =>
+                   {
+                       if (Contacts.Count == 0 || CurrentContact == null)
+                       {
+                           return;
+                       }
+                   }));
+            }
+        }
+
+        /// <summary>
+        /// Команда на выполнение удаления контакта.
+        /// </summary>
+        public RelayCommand RemoveCommand
+        {
+            get
+            {
+                return _removeCommand ??
+                    (_removeCommand = new RelayCommand(obj =>
+                    {
+                        if (Contacts.Count > 1)
+                        {
+                            int index = Contacts.IndexOf(CurrentContact);
+
+                            if (index == 0)
+                            {
+                                CurrentContact = Contacts[index + 1];
+                            }
+                            else
+                            {
+                                CurrentContact = Contacts[index - 1];
+                            }
+
+                            Contacts.RemoveAt(index);
+                        }
+                        else
+                        {
+                            Contacts.Remove(CurrentContact);
+                        }
+                    },
+                    (obj) => CurrentContact != null));
+            }
+        }
+
+        /// <summary>
+        /// Возвращает и задает коллекцию контактов.
+        /// </summary>
+        public ObservableCollection<Contact> Contacts
+        {
+            get
+            {
+                return _contacts;
             }
             set
             {
-                if (value != _contact.Name)
+                if (value != _contacts)
                 {
-                    _contact.Name = value;
-                    OnPropertyChanged(nameof(Name));
+                    _contacts = value;
+                    OnPropertyChanged(nameof(Contacts));
                 }
             }
         }
 
         /// <summary>
-        /// Возвращает и задает номер телефона контакта.
+        /// Возвращает и задает текущий контакт.
         /// </summary>
-        public string PhoneNumber
+        public Contact CurrentContact
         {
             get
             {
-                return _contact.PhoneNumber;
+                return _currentContact;
             }
             set
             {
-                if (value != _contact.PhoneNumber)
+                if (_currentContact != value)
                 {
-                    _contact.PhoneNumber = value;
-                    OnPropertyChanged(nameof(PhoneNumber));
+                    _currentContact = value;
+                    OnPropertyChanged(nameof(CurrentContact));
                 }
             }
         }
 
         /// <summary>
-        /// Возвращает и задает почту контакта.
+        /// Сохраняет данные.
         /// </summary>
-        public string Email
+        public void Save()
         {
-            get
-            {
-                return _contact.Email;
-            }
-            set
-            {
-                if (value != _contact.Email)
-                {
-                    _contact.Email = value;
-                    OnPropertyChanged(nameof(Email));
-                }
-            }
+            ContactSerializer.SaveToFile(Contacts);
         }
 
         /// <summary>
-        /// Возвращает и задает контакт.
+        /// Загружает данные.
         /// </summary>
-        public Contact Contact
+        public void Load()
         {
-            get
-            {
-                return _contact;
-            }
-            set
-            {
-                if (value != _contact)
-                {
-                    _contact = value;
-                    OnPropertyChanged(nameof(Contact));
-                }
-            }
+            Contacts = ContactSerializer.LoadFromFile();
         }
 
         /// <summary>
         /// Зажигает событие.
         /// </summary>
-        /// <param name="propertyName">Название свойства,
+        /// <param name="prop">Название свойства,
         /// для которого зажигается событие.</param>
-        public void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        /// <summary>
-        /// Команда на выполнение сохранения данных.
-        /// </summary>
-        public RelayCommand SaveCommand
-        {
-            get
-            {
-                return _saveCommand ??
-                    (_saveCommand = new RelayCommand(obj =>
-                    {
-                        ContactSerializer.SaveToFile(_contact);
-                    }));
-            }
-        }
-
-        /// <summary>
-        /// Команда на выполнение сохранения данных.
-        /// </summary>
-        public RelayCommand LoadCommand
-        {
-            get
-            {
-                return _loadCommand ??
-                    (_loadCommand = new RelayCommand(obj =>
-                    {
-                        Contact = ContactSerializer.LoadFromFile();
-                    }));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
