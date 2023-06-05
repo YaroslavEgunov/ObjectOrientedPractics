@@ -60,7 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Services\ContactSerializer.cs" />
-    <Compile Include="ViewModel\BoolToIsEnableConverter.cs" />
+    <Compile Include="ViewModel\BoolToStringConverter.cs" />
     <Compile Include="ViewModel\BoolToVisibilityConverter.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
@@ -109,7 +109,7 @@
     <Resource Include="Resources\photo_placeholder_100x100.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\ContactApp_24x24.png" />
+    <Resource Include="Resources\contact_app_24x24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

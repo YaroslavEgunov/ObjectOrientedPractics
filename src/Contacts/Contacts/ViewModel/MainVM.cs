@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using View.Model.Services;
+using System.Windows.Controls;
 
 namespace View.ViewModel
 {
@@ -49,12 +50,30 @@ namespace View.ViewModel
         private RelayCommand _editCommand;
 
         /// <summary>
+        /// Отвечает за видимость кнопки Apply.
+        /// </summary>
+        private bool _applyIsVisible = false;
+
+        /// <summary>
+        /// Отвечает за доступность кнопок Edit и Remove.
+        /// </summary>
+        private bool _buttonIsEnabled = false;
+
+        /// <summary>
+        /// Отвечает за доступность кнопки Add.
+        /// </summary>
+        private bool _addIsEnabled = true;
+
+        /// <summary>
+        /// Отвечает за доступность textbox.
+        /// </summary>
+        private bool _textBoxesIsEnabled = false;
+
+        /// <summary>
         /// Хранит событие на изменение.
         /// Зажигается при изменении данных контакта.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private bool _applyIsVisible = false;
 
         public bool ApplyIsVisible
         {
@@ -69,6 +88,45 @@ namespace View.ViewModel
             }
         }
 
+        public bool ButtonIsEnabled
+        {
+            get
+            {
+                return _buttonIsEnabled;
+            }
+            set
+            {
+                _buttonIsEnabled = value;
+                OnPropertyChanged(nameof(ButtonIsEnabled));
+            }
+        }
+
+        public bool AddIsEnabled
+        {
+            get
+            {
+                return _addIsEnabled;
+            }
+            set
+            {
+                _addIsEnabled = value;
+                OnPropertyChanged(nameof(AddIsEnabled));
+            }
+        }
+
+        public bool TextBoxesIsEnabled
+        {
+            get
+            {
+                return _textBoxesIsEnabled;
+            }
+            set
+            {
+                _textBoxesIsEnabled = value;
+                OnPropertyChanged(nameof(TextBoxesIsEnabled));
+            }
+        }
+
         /// <summary>
         /// Команда на выполнение добавления контакта.
         /// </summary>
@@ -79,9 +137,11 @@ namespace View.ViewModel
                 return _addCommand ??
                     (_addCommand = new RelayCommand(obj =>
                     {
-                        CurrentContact = new Contact();
-                        Contacts.Add(CurrentContact);
                         ApplyIsVisible = true;
+                        TextBoxesIsEnabled = true;
+                        CurrentContact = new Contact("", "", "");
+                        ButtonIsEnabled = false;
+                        AddIsEnabled = false;
                     }));
             }
         }
@@ -96,7 +156,14 @@ namespace View.ViewModel
                 return _applyCommand ??
                     (_applyCommand = new RelayCommand(obj =>
                     {
+                        if (!Contacts.Contains(CurrentContact))
+                        {
+                            Contacts.Add(CurrentContact);
+                        }
                         ApplyIsVisible = false;
+                        TextBoxesIsEnabled = false;
+                        ButtonIsEnabled = true;
+                        AddIsEnabled = true;
                     }));
             }
         }
@@ -109,14 +176,13 @@ namespace View.ViewModel
             get
             {
                 return _editCommand ??
-                   (_editCommand = new RelayCommand(obj =>
-                   {
-                       if (Contacts.Count == 0 || CurrentContact == null)
-                       {
-                           return;
-                       }
-                       ApplyIsVisible = true;
-                   }));
+                    (_editCommand = new RelayCommand(obj =>
+                    {
+                        ApplyIsVisible = true;
+                        TextBoxesIsEnabled = true;
+                        ButtonIsEnabled = false;
+                        AddIsEnabled = false;
+                    }));
             }
         }
 
@@ -187,6 +253,14 @@ namespace View.ViewModel
                 if (_currentContact != value)
                 {
                     _currentContact = value;
+                    if (CurrentContact == null)
+                    {
+                        ButtonIsEnabled = false;
+                    }
+                    else
+                    {
+                        ButtonIsEnabled = true;
+                    }
                     OnPropertyChanged(nameof(CurrentContact));
                 }
             }

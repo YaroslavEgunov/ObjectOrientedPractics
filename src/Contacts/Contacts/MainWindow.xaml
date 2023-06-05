@@ -9,7 +9,7 @@
         d:DataContext="{d:DesignInstance Type=ViewModel:MainVM}"
         mc:Ignorable="d"
         Title="Contacts" Height="450" Width="550" 
-        Icon="/Resources/ContactApp_24x24.png" 
+        Icon="/Resources/contact_app_24x24.png" 
         ResizeMode="CanResize" MinWidth="550" MinHeight="450"
         Closed="Window_Closed" Loaded="Window_Loaded">
     <Window.DataContext>
@@ -79,7 +79,7 @@
                     ItemsSource="{Binding Contacts}"
                     SelectedItem="{Binding CurrentContact}" 
                     DisplayMemberPath="Name" 
-                    Grid.RowSpan="2"/>
+                    Grid.RowSpan="2" SelectionChanged="ContactsListBox_SelectionChanged"/>
             </Grid>
             <Grid 
                 Grid.Row="2" 
