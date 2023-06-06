@@ -156,7 +156,7 @@ namespace View.ViewModel
                 return _applyCommand ??
                     (_applyCommand = new RelayCommand(obj =>
                     {
-                        if (!Contacts.Contains(CurrentContact))
+                        if (CurrentContact != null || !Contacts.Contains(CurrentContact) )
                         {
                             Contacts.Add(CurrentContact);
                         }
