@@ -44,13 +44,13 @@
                 <TextBox 
                     Margin="3" 
                     Style="{StaticResource errorTextStyle}"
-                    IsEnabled="{Binding TextBoxesIsBlocked}"
+                    IsEnabled="{Binding TextBoxesIsUnavailable}"
                     Text="{Binding Path=CurrentContact.Name, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Margin="3" Text="Phone Number:"/>
                 <TextBox 
                     Margin="3" 
                     Style="{StaticResource errorTextStyle}"
-                    IsEnabled="{Binding TextBoxesIsBlocked}"
+                    IsEnabled="{Binding TextBoxesIsUnavailable}"
                     Text="{Binding Path=CurrentContact.PhoneNumber, UpdateSourceTrigger=PropertyChanged}"
                     PreviewTextInput="PhoneNumberTextBox_PreviewTextInput"
                     DataObject.Pasting="PhoneNumberTextBox_Paste"/>
@@ -58,7 +58,7 @@
                 <TextBox 
                     Margin="3"
                     Style="{StaticResource errorTextStyle}"
-                    IsEnabled="{Binding TextBoxesIsBlocked}"
+                    IsEnabled="{Binding TextBoxesIsUnavailable}"
                     Text="{Binding Path=CurrentContact.Email, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </Grid>

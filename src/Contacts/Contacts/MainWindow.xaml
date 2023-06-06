@@ -99,7 +99,7 @@
                     Width="Auto" 
                     Margin="3"
                     Command="{Binding AddCommand}"
-                    IsEnabled="{Binding AddIsEnabled}"/>
+                    IsEnabled="{Binding AddIsUnavailable}"/>
                 <Button 
                     Content="Edit" 
                     Grid.Column="1" 
@@ -107,7 +107,7 @@
                     Width="Auto" 
                     Margin="3"
                     Command="{Binding EditCommand}"
-                    IsEnabled="{Binding ButtonIsBlocked}"/>
+                    IsEnabled="{Binding ButtonIsUnavailable}"/>
                 <Button 
                     Content="Remove" 
                     Grid.Column="2" 
@@ -115,7 +115,7 @@
                     Width="Auto" 
                     Margin="3"
                     Command="{Binding RemoveCommand}"
-                    IsEnabled="{Binding ButtonIsBlocked}"/>
+                    IsEnabled="{Binding ButtonIsUnavailable}"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="2" Margin="8">
@@ -132,7 +132,7 @@
                     HorizontalAlignment="Left" 
                     Margin="3,50,3,3"
                     Command="{Binding ApplyCommand}"
-                    Visibility="{Binding ButtonIsBlocked, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    Visibility="{Binding ButtonIsUnavailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
             <StackPanel Grid.Column="0"/>
         </Grid>

@@ -50,21 +50,21 @@ namespace View.ViewModel
         private RelayCommand _editCommand;
 
         /// <summary>
-        /// Отвечает за доступность кнопок Edit и Remove.
+        /// Отвечает за доступность функций Edit и Remove.
         /// </summary>
-        private bool _buttonIsBlocked = false;
+        private bool _buttonIsUnavailable = false;
 
         /// <summary>
-        /// Отвечает за доступность кнопки Add.
+        /// Отвечает за доступность функции Add.
         /// </summary>
-        private bool _addIsEnabled = true;
+        private bool _addIsUnavailable = true;
 
         /// <summary>
-        /// Отвечает за доступность textbox.
+        /// Отвечает за доступность текстовых полей.
         /// </summary>
-        private bool _textBoxesIsBlocked = false;
+        private bool _textBoxesIsUnavailable = false;
 
-        private bool _applyInProcess = false;
+        private bool _editInProcess = false;
 
         /// <summary>
         /// Хранит событие на изменение.
@@ -72,42 +72,42 @@ namespace View.ViewModel
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool ButtonIsBlocked
+        public bool ButtonIsUnavailable
         {
             get
             {
-                return _buttonIsBlocked;
+                return _buttonIsUnavailable;
             }
             set
             {
-                _buttonIsBlocked = value;
-                OnPropertyChanged(nameof(ButtonIsBlocked));
+                _buttonIsUnavailable = value;
+                OnPropertyChanged(nameof(ButtonIsUnavailable));
             }
         }
 
-        public bool AddIsEnabled
+        public bool AddIsUnavailable
         {
             get
             {
-                return _addIsEnabled;
+                return _addIsUnavailable;
             }
             set
             {
-                _addIsEnabled = value;
-                OnPropertyChanged(nameof(AddIsEnabled));
+                _addIsUnavailable = value;
+                OnPropertyChanged(nameof(AddIsUnavailable));
             }
         }
 
-        public bool TextBoxesIsBlocked
+        public bool TextBoxesIsUnavailable
         {
             get
             {
-                return _textBoxesIsBlocked;
+                return _textBoxesIsUnavailable;
             }
             set
             {
-                _textBoxesIsBlocked = value;
-                OnPropertyChanged(nameof(TextBoxesIsBlocked));
+                _textBoxesIsUnavailable = value;
+                OnPropertyChanged(nameof(TextBoxesIsUnavailable));
             }
         }
 
@@ -121,11 +121,11 @@ namespace View.ViewModel
                 return _addCommand ??
                     (_addCommand = new RelayCommand(obj =>
                     {
-                        TextBoxesIsBlocked = true;
+                        TextBoxesIsUnavailable = true;
                         CurrentContact = new Contact("", "", "");
-                        ButtonIsBlocked = false;
-                        AddIsEnabled = false;
-                        _applyInProcess = true;
+                        ButtonIsUnavailable = false;
+                        AddIsUnavailable = false;
+                        _editInProcess = true;
                     }));
             }
         }
@@ -144,10 +144,10 @@ namespace View.ViewModel
                         {
                             Contacts.Add(CurrentContact);
                         }
-                        TextBoxesIsBlocked = false;
-                        ButtonIsBlocked = true;
-                        AddIsEnabled = true;
-                        _applyInProcess = false;
+                        TextBoxesIsUnavailable = false;
+                        ButtonIsUnavailable = true;
+                        AddIsUnavailable = true;
+                        _editInProcess = false;
                     }));
             }
         }
@@ -162,9 +162,9 @@ namespace View.ViewModel
                 return _editCommand ??
                     (_editCommand = new RelayCommand(obj =>
                     {
-                        TextBoxesIsBlocked = true;
-                        ButtonIsBlocked = false;
-                        AddIsEnabled = false;
+                        TextBoxesIsUnavailable = true;
+                        ButtonIsUnavailable = false;
+                        AddIsUnavailable = false;
                     }));
             }
         }
@@ -197,7 +197,7 @@ namespace View.ViewModel
                         else
                         {
                             Contacts.Remove(CurrentContact);
-                            ButtonIsBlocked = true;
+                            ButtonIsUnavailable = true;
                         }
                     },
                     (obj) => CurrentContact != null));
@@ -239,18 +239,18 @@ namespace View.ViewModel
                     _currentContact = value;
                     if (CurrentContact == null)
                     {
-                        ButtonIsBlocked = false;
+                        ButtonIsUnavailable = false;
                     }
                     else
                     {
-                        ButtonIsBlocked = true;
+                        ButtonIsUnavailable = true;
                     }
                     OnPropertyChanged(nameof(CurrentContact));
-                    if (_applyInProcess == true)
+                    if (_editInProcess == true)
                     {
-                        TextBoxesIsBlocked = false;
-                        AddIsEnabled = true;
-                        _applyInProcess = false;
+                        TextBoxesIsUnavailable = false;
+                        AddIsUnavailable = true;
+                        _editInProcess = false;
                     }
                 }
             }
@@ -284,7 +284,7 @@ namespace View.ViewModel
 
         public MainVM()
         {
-            ButtonIsBlocked = true;
+            ButtonIsUnavailable = true;
         }
     }
 }
