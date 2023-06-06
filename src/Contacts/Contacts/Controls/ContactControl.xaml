@@ -40,9 +40,7 @@
                 Grid.Column="1" 
                 Margin="3" 
                 Text="Name:"/>
-            <StackPanel 
-                Grid.Row="1" 
-                Grid.Column="1">
+            <StackPanel Grid.Row="1" Grid.Column="1">
                 <TextBox 
                     Margin="3" 
                     Style="{StaticResource errorTextStyle}"

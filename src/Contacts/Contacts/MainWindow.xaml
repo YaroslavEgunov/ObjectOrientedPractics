@@ -47,13 +47,9 @@
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition 
-                Width="0.5*"
-                MinWidth="170"/>
+            <ColumnDefinition Width="0.5*" MinWidth="170"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition 
-                Width="*" 
-                MinWidth="350"/>
+            <ColumnDefinition Width="*" MinWidth="350"/>
         </Grid.ColumnDefinitions>
         <GridSplitter 
             Grid.Column="1" 
@@ -62,17 +58,13 @@
             HorizontalAlignment="Center" 
             VerticalAlignment="Stretch" 
             Background="White"/>
-        <Grid 
-            Background="#f8f8f8" 
-            Grid.Column="0">
+        <Grid Background="#f8f8f8" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid 
-                Grid.Row="0" 
-                Margin="8,8,8,0">
+            <Grid Grid.Row="0" Margin="8,8,8,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
@@ -81,13 +73,9 @@
                     Grid.Column="0" 
                     Margin="3" 
                     Text="Find:"/>
-                <TextBox 
-                    Grid.Column="1" 
-                    Margin="3" Text=""/>
+                <TextBox Grid.Column="1" Margin="3" Text=""/>
             </Grid>
-            <Grid 
-                Grid.Row="1" 
-                Margin="8,0,8,0">
+            <Grid Grid.Row="1" Margin="8,0,8,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="17*"/>
                     <RowDefinition Height="322*"/>
@@ -98,9 +86,7 @@
                     ItemsSource="{Binding Contacts}"
                     SelectedItem="{Binding CurrentContact}" />
             </Grid>
-            <Grid 
-                Grid.Row="2" 
-                Margin="8,0,8,8">
+            <Grid Grid.Row="2" Margin="8,0,8,8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -132,16 +118,12 @@
                     IsEnabled="{Binding ButtonIsBlocked}"/>
             </Grid>
         </Grid>
-        <Grid 
-            Grid.Column="2" 
-            Margin="8">
+        <Grid Grid.Column="2" Margin="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel 
-                Grid.Column="1" 
-                Orientation="Vertical">
+            <StackPanel Grid.Column="1" Orientation="Vertical">
                 <Controls:ContactControl/>
                 <Button 
                     Content="Apply" 
