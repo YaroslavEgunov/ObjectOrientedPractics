@@ -15,16 +15,7 @@ namespace View.ViewModel
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Visibility visibility = Visibility.Collapsed;
-            if((bool)value)
-            {
-                visibility = Visibility.Visible;
-            }
-            else
-            {
-                visibility = Visibility.Collapsed;
-            }
-            return visibility;
+            return (bool)value ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

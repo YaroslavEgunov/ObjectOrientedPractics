@@ -39,7 +39,6 @@
                     </StackPanel>
                 </Grid>
             </DataTemplate>
-            <ViewModel:BoolToStringConverter x:Key="BoolToStringConverter"/>
             <ViewModel:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
@@ -114,7 +113,7 @@
                     Width="Auto" 
                     Margin="3"
                     Command="{Binding AddCommand}"
-                    IsEnabled="{Binding AddIsEnabled, Converter={StaticResource BoolToStringConverter}}"/>
+                    IsEnabled="{Binding AddIsEnabled}"/>
                 <Button 
                     Content="Edit" 
                     Grid.Column="1" 
@@ -122,7 +121,7 @@
                     Width="Auto" 
                     Margin="3"
                     Command="{Binding EditCommand}"
-                    IsEnabled="{Binding ButtonIsEnabled, Converter={StaticResource BoolToStringConverter}}"/>
+                    IsEnabled="{Binding ButtonIsBlocked}"/>
                 <Button 
                     Content="Remove" 
                     Grid.Column="2" 
@@ -130,7 +129,7 @@
                     Width="Auto" 
                     Margin="3"
                     Command="{Binding RemoveCommand}"
-                    IsEnabled="{Binding ButtonIsEnabled, Converter={StaticResource BoolToStringConverter}}"/>
+                    IsEnabled="{Binding ButtonIsBlocked}"/>
             </Grid>
         </Grid>
         <Grid 
@@ -151,7 +150,7 @@
                     HorizontalAlignment="Left" 
                     Margin="3,50,3,3"
                     Command="{Binding ApplyCommand}"
-                    Visibility="{Binding ApplyIsVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    Visibility="{Binding ButtonIsBlocked, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
             <StackPanel Grid.Column="0"/>
         </Grid>

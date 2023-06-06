@@ -63,7 +63,6 @@
       <DependentUpon>ContactControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Services\ContactSerializer.cs" />
-    <Compile Include="ViewModel\BoolToStringConverter.cs" />
     <Compile Include="ViewModel\BoolToVisibilityConverter.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
