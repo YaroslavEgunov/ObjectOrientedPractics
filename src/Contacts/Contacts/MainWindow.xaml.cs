@@ -23,11 +23,6 @@ namespace Contacts
     {
         private MainVM _vm;
 
-                /// <summary>
-        /// Отвечает за видимость кнопки Apply.
-        /// </summary>
-        private bool _applyIsVisible = false;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -57,11 +52,6 @@ namespace Contacts
             {
                 MessageBox.Show(exception.Message);
             }
-        }
-
-        private void ContactsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            _applyIsVisible = false;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace View.Model.Services
         /// <summary>
         /// Путь к файлу сохранения.
         /// </summary>
-        private static string _fileName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + 
+        private static string _fileName = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + 
             @"\Contacts\contacts.json";
 
         /// <summary>
