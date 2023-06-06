@@ -20,11 +20,11 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image 
-                        Grid.Column="0"
-                        Width="32"
-                        Height="32"
-                        Source="Resources/photo_placeholder_100x100.png"/>
+                    <Ellipse Width="32" Height="32">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="Resources/photo_placeholder_100x100.png" Stretch="UniformToFill"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
                     <StackPanel 
                         Grid.Column="1" 
                         Orientation="Vertical" 
