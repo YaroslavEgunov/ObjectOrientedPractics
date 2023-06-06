@@ -12,7 +12,7 @@ namespace View.Model
     /// <summary>
     /// Хранит данные о контакте.
     /// </summary>
-    public class Contact : INotifyPropertyChanged
+    public class Contact : INotifyPropertyChanged, IDataErrorInfo
     {
         /// <summary>
         /// Имя контакта.
@@ -122,5 +122,22 @@ namespace View.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+
+        }
+
+        public string this[string columnName] 
+        { 
+            get
+            {
+               return null;
+            } 
+        } 
     }
 }
