@@ -22,7 +22,9 @@
                     </Grid.ColumnDefinitions>
                     <Ellipse Width="32" Height="32">
                         <Ellipse.Fill>
-                            <ImageBrush ImageSource="Resources/photo_placeholder_100x100.png" Stretch="UniformToFill"/>
+                            <ImageBrush 
+                                ImageSource="Resources/photo_placeholder_100x100.png" 
+                                Stretch="UniformToFill"/>
                         </Ellipse.Fill>
                     </Ellipse>
                     <StackPanel 
@@ -132,7 +134,9 @@
                     HorizontalAlignment="Left" 
                     Margin="3,50,3,3"
                     Command="{Binding ApplyCommand}"
-                    Visibility="{Binding IsUnavailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    Visibility="{Binding IsUnavailable, Converter={StaticResource BoolToVisibilityConverter}}"
+                    IsEnabled="{Binding SelectedContact.HasErrors, Converter={StaticResource BoolToVisibilityConverter}}">
+                </Button>
             </StackPanel>
             <StackPanel Grid.Column="0"/>
         </Grid>

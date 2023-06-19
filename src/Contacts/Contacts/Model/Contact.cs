@@ -39,7 +39,9 @@ namespace View.Model
         /// <summary>
         /// Возвращает и задает имя контакта.
         /// </summary>
-        public string Name 
+        [Required(ErrorMessage = "Must not be empty.")]
+        [StringLength(100, ErrorMessage = "Must be less than 100 character.")]
+        public string Name
         {
             get
             {
@@ -59,7 +61,11 @@ namespace View.Model
         /// <summary>
         /// Возвращает и задает номер телефона контакта.
         /// </summary>
-        public string PhoneNumber 
+        [StringLength(100, ErrorMessage = "Must be less than 100 character.")]
+        [Phone(ErrorMessage = "Must contain only numbers or the characters '+ - ( )'. " +
+            "Example: +7 (999) 111-22-33.")]
+        [Required(ErrorMessage = "Must not be empty.")]
+        public string PhoneNumber
         {
             get
             {
@@ -78,7 +84,10 @@ namespace View.Model
         /// <summary>
         /// Возвращает и задает почту контакта.
         /// </summary>
-        public string Email 
+        [StringLength(100, ErrorMessage = "Must be less than 100 character.")]
+        [EmailAddress(ErrorMessage = "Must contain the character @.")]
+        [Required(ErrorMessage = "Must not be empty.")]
+        public string Email
         {
             get
             {
@@ -124,34 +133,31 @@ namespace View.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        string IDataErrorInfo.this[string name]
+        string IDataErrorInfo.this[string propertyName]
         {
             get
             {
-                string result = null;
-
-                switch (name) 
-                {
-                    case "Name":
-                        if (string.IsNullOrWhiteSpace(Name))
-                            result = "Name cannot be empty";
-                        else if (Name.Length > 100)
-                            result = "Name must be less than 100 character";
-                        break;
-                }
-
-                if (ErrorCollection.ContainsKey(name))
-                    ErrorCollection[name]= result;
-                else if (result != null)
-                    ErrorCollection.Add(name, result);  
-
-                OnPropertyChanged("ErrorCollection"); 
-
-                return result;
+                return Validate(propertyName);
             }
         }
 
-        public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
+        private string Validate(string propertyName)
+        {
+            var value = GetType().GetProperty(propertyName).GetValue(
+                this, null);
+            var results = new List<ValidationResult>();
+            var context = new ValidationContext(this, null, null)
+            {
+                MemberName = propertyName
+            };
+
+            if (!Validator.TryValidateProperty(value, context, results))
+            {
+                return results.First().ErrorMessage;
+            }
+
+            return string.Empty;
+        }
 
         /// <inheritdoc/>
         public string Error

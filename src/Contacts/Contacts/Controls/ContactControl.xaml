@@ -51,14 +51,15 @@
                 Text="Name:"/>
             <StackPanel Grid.Row="1" Grid.Column="1">
                 <TextBox 
+                    x:Name="NameTextBox"
                     Margin="3" 
                     Style="{StaticResource textBoxInError}"
 					Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
                     IsEnabled="{Binding TextIsUnavailable}"
-                    Text="{Binding Path=CurrentContact.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                    ToolTip="{Binding CurrentContact.ErrorCollection[Name]}"/>
+                    Text="{Binding Path=CurrentContact.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                 <TextBlock Margin="3" Text="Phone Number:"/>
                 <TextBox 
+                    x:Name="PhoneNumberTextBox"
                     Margin="3"
                     Style="{StaticResource textBoxInError}"
 					Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
@@ -68,6 +69,7 @@
                     DataObject.Pasting="PhoneNumberTextBox_Paste"/>
                 <TextBlock Margin="3" Text="Email:"/>
                 <TextBox 
+                    x:Name="EmailTextBox"
                     Margin="3"
                     Style="{StaticResource textBoxInError}"
 					Validation.ErrorTemplate="{StaticResource ErrorTemplate}"

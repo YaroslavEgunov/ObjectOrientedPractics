@@ -65,7 +65,6 @@
     </Compile>
     <Compile Include="Model\Services\ContactSerializer.cs" />
     <Compile Include="ViewModel\BoolToVisibilityConverter.cs" />
-    <Compile Include="ViewModel\ContactVM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Page Include="Controls\ContactControl.xaml">
