@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:View.ViewModel" 
         xmlns:ViewModel="clr-namespace:View.ViewModel" 
         xmlns:Controls="clr-namespace:View.Controls" 
-        x:Class="Contacts.MainWindow" d:DataContext="{d:DesignInstance Type={x:Type ViewModel:MainVM}}"
+        x:Class="Contacts.MainWindow" 
+        d:DataContext="{d:DesignInstance Type={x:Type ViewModel:MainVM}}"
         mc:Ignorable="d"
         Title="Contacts" Height="450" Width="550" 
         Icon="/Resources/contact_app_24x24.png" 
@@ -134,11 +135,8 @@
                     HorizontalAlignment="Left" 
                     Margin="3,50,3,3"
                     Command="{Binding ApplyCommand}"
-                    Visibility="{Binding IsUnavailable, Converter={StaticResource BoolToVisibilityConverter}}"
-                    IsEnabled="{Binding SelectedContact.HasErrors, Converter={StaticResource BoolToVisibilityConverter}}">
-                </Button>
+                    Visibility="{Binding IsUnavailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
-            <StackPanel Grid.Column="0"/>
         </Grid>
     </Grid>
 </Window>

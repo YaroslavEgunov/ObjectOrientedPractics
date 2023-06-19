@@ -15,7 +15,7 @@
                 </Border>
             </StackPanel>
         </ControlTemplate>
-        <Style x:Key="textBoxInError" TargetType="TextBox">
+        <Style x:Key="errorTextStyle" TargetType="TextBox">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="True">
                     <Setter 
@@ -53,28 +53,28 @@
                 <TextBox 
                     x:Name="NameTextBox"
                     Margin="3" 
-                    Style="{StaticResource textBoxInError}"
-					Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
                     IsEnabled="{Binding TextIsUnavailable}"
-                    Text="{Binding Path=CurrentContact.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                    Text="{Binding Path=CurrentContact.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Style="{StaticResource errorTextStyle}"
+					Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 <TextBlock Margin="3" Text="Phone Number:"/>
                 <TextBox 
                     x:Name="PhoneNumberTextBox"
                     Margin="3"
-                    Style="{StaticResource textBoxInError}"
-					Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
                     IsEnabled="{Binding TextIsUnavailable}"
                     Text="{Binding Path=CurrentContact.PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                     PreviewTextInput="PhoneNumberTextBox_PreviewTextInput"
-                    DataObject.Pasting="PhoneNumberTextBox_Paste"/>
+                    DataObject.Pasting="PhoneNumberTextBox_Paste"
+                    Style="{StaticResource errorTextStyle}"
+					Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
                 <TextBlock Margin="3" Text="Email:"/>
                 <TextBox 
                     x:Name="EmailTextBox"
                     Margin="3"
-                    Style="{StaticResource textBoxInError}"
-					Validation.ErrorTemplate="{StaticResource ErrorTemplate}"
                     IsEnabled="{Binding TextIsUnavailable}"
-                    Text="{Binding Path=CurrentContact.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                    Text="{Binding Path=CurrentContact.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                    Style="{StaticResource errorTextStyle}"
+					Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
             </StackPanel>
         </Grid>
     </Grid>
