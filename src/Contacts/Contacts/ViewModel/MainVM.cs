@@ -52,7 +52,7 @@ namespace View.ViewModel
         /// <summary>
         /// Отвечает за доступность функций Edit и Remove.
         /// </summary>
-        private bool _buttonIsUnavailable = false;
+        private bool _isUnavailable = false;
 
         /// <summary>
         /// Отвечает за доступность функции Add.
@@ -62,7 +62,7 @@ namespace View.ViewModel
         /// <summary>
         /// Отвечает за доступность текстовых полей.
         /// </summary>
-        private bool _textBoxesIsUnavailable = false;
+        private bool _textIsUnavailable = false;
 
         private bool _editInProcess = false;
 
@@ -72,19 +72,29 @@ namespace View.ViewModel
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool ButtonIsUnavailable
+
+        /// <summary>
+        /// Возвращает и задает доступность элементов. 
+        /// Задается только во время инициализации.
+        /// </summary>
+        public bool IsUnavailable
         {
             get
             {
-                return _buttonIsUnavailable;
+                return _isUnavailable;
             }
             set
             {
-                _buttonIsUnavailable = value;
-                OnPropertyChanged(nameof(ButtonIsUnavailable));
+                _isUnavailable = value;
+                OnPropertyChanged(nameof(IsUnavailable));
             }
         }
 
+
+        /// <summary>
+        /// Возвращает и задает доступность элемента Add. 
+        /// Задается только во время инициализации.
+        /// </summary>
         public bool AddIsUnavailable
         {
             get
@@ -98,16 +108,20 @@ namespace View.ViewModel
             }
         }
 
-        public bool TextBoxesIsUnavailable
+        /// <summary>
+        /// Возвращает и задает доступность элементов для ввода текста. 
+        /// Задается только во время инициализации.
+        /// </summary>
+        public bool TextIsUnavailable
         {
             get
             {
-                return _textBoxesIsUnavailable;
+                return _textIsUnavailable;
             }
             set
             {
-                _textBoxesIsUnavailable = value;
-                OnPropertyChanged(nameof(TextBoxesIsUnavailable));
+                _textIsUnavailable = value;
+                OnPropertyChanged(nameof(TextIsUnavailable));
             }
         }
 
@@ -121,9 +135,9 @@ namespace View.ViewModel
                 return _addCommand ??
                     (_addCommand = new RelayCommand(obj =>
                     {
-                        TextBoxesIsUnavailable = true;
+                        TextIsUnavailable = true;
                         CurrentContact = new Contact("", "", "");
-                        ButtonIsUnavailable = false;
+                        IsUnavailable = false;
                         AddIsUnavailable = false;
                         _editInProcess = true;
                     }));
@@ -144,8 +158,9 @@ namespace View.ViewModel
                         {
                             Contacts.Add(CurrentContact);
                         }
-                        TextBoxesIsUnavailable = false;
-                        ButtonIsUnavailable = true;
+
+                        TextIsUnavailable = false;
+                        IsUnavailable = true;
                         AddIsUnavailable = true;
                         _editInProcess = false;
                     }));
@@ -162,8 +177,8 @@ namespace View.ViewModel
                 return _editCommand ??
                     (_editCommand = new RelayCommand(obj =>
                     {
-                        TextBoxesIsUnavailable = true;
-                        ButtonIsUnavailable = false;
+                        TextIsUnavailable = true;
+                        IsUnavailable = false;
                         AddIsUnavailable = false;
                     }));
             }
@@ -197,7 +212,7 @@ namespace View.ViewModel
                         else
                         {
                             Contacts.Remove(CurrentContact);
-                            ButtonIsUnavailable = true;
+                            IsUnavailable = true;
                         }
                     },
                     (obj) => CurrentContact != null));
@@ -237,18 +252,21 @@ namespace View.ViewModel
                 if (_currentContact != value)
                 {
                     _currentContact = value;
+
                     if (CurrentContact == null)
                     {
-                        ButtonIsUnavailable = false;
+                        IsUnavailable = false;
                     }
                     else
                     {
-                        ButtonIsUnavailable = true;
+                        IsUnavailable = true;
                     }
+
                     OnPropertyChanged(nameof(CurrentContact));
+
                     if (_editInProcess == true)
                     {
-                        TextBoxesIsUnavailable = false;
+                        TextIsUnavailable = false;
                         AddIsUnavailable = true;
                         _editInProcess = false;
                     }
@@ -284,7 +302,7 @@ namespace View.ViewModel
 
         public MainVM()
         {
-            ButtonIsUnavailable = true;
+            IsUnavailable = true;
         }
     }
 }

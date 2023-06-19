@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
+using View.Model;
 
 namespace View.Model
 {
@@ -123,21 +124,43 @@ namespace View.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        string IDataErrorInfo.this[string name]
+        {
+            get
+            {
+                string result = null;
+
+                switch (name) 
+                {
+                    case "Name":
+                        if (string.IsNullOrWhiteSpace(Name))
+                            result = "Name cannot be empty";
+                        else if (Name.Length > 100)
+                            result = "Name must be less than 100 character";
+                        break;
+                }
+
+                if (ErrorCollection.ContainsKey(name))
+                    ErrorCollection[name]= result;
+                else if (result != null)
+                    ErrorCollection.Add(name, result);  
+
+                OnPropertyChanged("ErrorCollection"); 
+
+                return result;
+            }
+        }
+
+        public Dictionary<string, string> ErrorCollection { get; private set; } = new Dictionary<string, string>();
+
+        /// <inheritdoc/>
         public string Error
         {
             get
             {
                 return null;
             }
-
         }
 
-        public string this[string columnName] 
-        { 
-            get
-            {
-               return null;
-            } 
-        } 
     }
 }

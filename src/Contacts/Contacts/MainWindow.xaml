@@ -73,7 +73,7 @@
                     Grid.Column="0" 
                     Margin="3" 
                     Text="Find:"/>
-                <TextBox Grid.Column="1" Margin="3" Text=""/>
+                <TextBox Grid.Column="1" Margin="3,3,0,3" Text=""/>
             </Grid>
             <Grid Grid.Row="1" Margin="8,0,8,0">
                 <Grid.RowDefinitions>
@@ -97,7 +97,7 @@
                     Grid.Column="0" 
                     Height="25" 
                     Width="Auto" 
-                    Margin="3"
+                    Margin="0,3,3,3"
                     Command="{Binding AddCommand}"
                     IsEnabled="{Binding AddIsUnavailable}"/>
                 <Button 
@@ -107,15 +107,15 @@
                     Width="Auto" 
                     Margin="3"
                     Command="{Binding EditCommand}"
-                    IsEnabled="{Binding ButtonIsUnavailable}"/>
+                    IsEnabled="{Binding IsUnavailable}"/>
                 <Button 
                     Content="Remove" 
                     Grid.Column="2" 
                     Height="25" 
                     Width="Auto" 
-                    Margin="3"
+                    Margin="3,3,0,3"
                     Command="{Binding RemoveCommand}"
-                    IsEnabled="{Binding ButtonIsUnavailable}"/>
+                    IsEnabled="{Binding IsUnavailable}"/>
             </Grid>
         </Grid>
         <Grid Grid.Column="2" Margin="8">
@@ -132,7 +132,7 @@
                     HorizontalAlignment="Left" 
                     Margin="3,50,3,3"
                     Command="{Binding ApplyCommand}"
-                    Visibility="{Binding ButtonIsUnavailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    Visibility="{Binding IsUnavailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </StackPanel>
             <StackPanel Grid.Column="0"/>
         </Grid>

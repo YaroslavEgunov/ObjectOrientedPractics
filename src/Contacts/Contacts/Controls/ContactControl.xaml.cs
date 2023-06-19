@@ -21,6 +21,8 @@ namespace View.Controls
     /// </summary>
     public partial class ContactControl : UserControl
     {
+        const string pattern = @"[\+\-\(\)\d]";
+
         public ContactControl()
         {
             InitializeComponent();
@@ -28,7 +30,6 @@ namespace View.Controls
 
         private void PhoneNumberTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            string pattern = @"[\+\-\(\)\d]";
             if (!Regex.IsMatch(e.Text, pattern))
             {
                 e.Handled = true;
@@ -40,7 +41,6 @@ namespace View.Controls
             if (e.DataObject.GetDataPresent(typeof(string)))
             {
                 string input = (string)e.DataObject.GetData(typeof(string));
-                string pattern = @"[\+\-\(\)\d]";
                 if (!Regex.IsMatch(input, pattern))
                 {
                     e.CancelCommand();
