@@ -5,21 +5,22 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using View.Model;
 using Newtonsoft.Json;
+using ViewModel;
+using Model;
 
-namespace View.Model.Services
+
+namespace ViewModel.Services
 {
     /// <summary>
     /// Предоставляет методы для сериализации данных о контакте.
     /// </summary>
     public static class ContactSerializer
     {
-
         /// <summary>
         /// Путь к файлу сохранения.
         /// </summary>
-        private static string _fileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
+        private static string _fileName = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
             @"\Contacts\contacts.json";
 
         /// <summary>
@@ -34,9 +35,11 @@ namespace View.Model.Services
         }
 
         /// <summary>
-        /// Сохраняет все данные о контакте в файл.
+        /// Сохраняет данные о товарах в файл.
         /// </summary>
-        /// <param name="contact"></param>
+        /// <param name="contacts">Данные о контактах, которые нужно сохранить.</param>
+        /// <exception cref="Exception">Возникает, 
+        /// если произошла ошибка при сохранении.</exception>
         public static void SaveToFile(ObservableCollection<Contact> contacts)
         {
             try
@@ -53,10 +56,10 @@ namespace View.Model.Services
             }
         }
 
-        // <summary>
-        // Загружает данные из файла.
-        // </summary>
-        // <returns>Возвращает текущий контакт.</returns>
+        /// <summary>
+        /// Загружает данные из файла и передает их в список.
+        /// </summary>
+        /// <returns>Возвращает текущий контакт.</returns>
         public static ObservableCollection<Contact> LoadFromFile()
         {
             СheckFile();

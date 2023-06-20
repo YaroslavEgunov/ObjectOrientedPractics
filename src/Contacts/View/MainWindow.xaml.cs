@@ -12,15 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using View.ViewModel;
+using ViewModel;
 
-namespace Contacts
+namespace View
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// ViewModel главного окна.
+        /// </summary>
         private MainVM _vm;
 
         public MainWindow()
@@ -31,7 +34,7 @@ namespace Contacts
         }
 
         private void Window_Closed(object sender, EventArgs e)
-        {
+        {         
             try
             {
                 _vm.Save();

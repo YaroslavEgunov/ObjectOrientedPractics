@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -21,7 +22,26 @@ namespace View.Controls
     /// </summary>
     public partial class ContactControl : UserControl
     {
+        /// <summary>
+        /// Константа для проверки номера телефона.
+        /// </summary>
         const string pattern = @"[\+\-\(\)\d]";
+
+        /// <summary>
+        /// Хранит свойство зависимости возможности редактирования.
+        /// </summary>
+        public static readonly DependencyProperty IsEditProperty = 
+            DependencyProperty.Register(nameof(IsEdit), typeof(bool),
+                typeof(ContactControl));
+
+        /// <summary>
+        /// Возвращает и задает возможность редактирования.
+        /// </summary>
+        public bool IsEdit
+        {
+            get => (bool)GetValue(IsEditProperty);
+            set => SetValue(IsEditProperty, value);
+        }
 
         public ContactControl()
         {
@@ -36,7 +56,7 @@ namespace View.Controls
             }
         }
 
-        private void PhoneNumberTextBox_Paste(object sender, DataObjectPastingEventArgs e)
+        private void PhoneNumberTextBox_Pasting(object sender, DataObjectPastingEventArgs e)
         {
             if (e.DataObject.GetDataPresent(typeof(string)))
             {

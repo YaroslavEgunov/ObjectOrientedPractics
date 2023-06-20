@@ -6,10 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-using View.Model;
-using View.Model.Services;
 
-namespace View.ViewModel
+namespace View.Converters
 {
     /// <summary>
     /// Конвертер значений, который преобразовывает

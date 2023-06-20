@@ -1,0 +1,162 @@
+﻿<Window x:Class="View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ViewModel;assembly=ViewModel" 
+        d:DataContext="{d:DesignInstance Type=local:MainVM}"
+        xmlns:calc="clr-namespace:CalcBinding;assembly=CalcBinding"
+        xmlns:control="clr-namespace:View.Controls"
+        xmlns:converter="clr-namespace:View.Converters"
+        mc:Ignorable="d"
+        Title="Contacts" 
+        Height="450" 
+        Width="600" 
+        Icon="Resources/contact_app_24x24.png" 
+        Closed="Window_Closed" 
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <DataTemplate x:Key="contactTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Ellipse Width="32" Height="32">
+                    <Ellipse.Fill>
+                        <ImageBrush 
+                                ImageSource="Resources/photo_placeholder_100x100.png" 
+                                Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <StackPanel 
+                    Grid.Column="1" 
+                    Orientation="Vertical" 
+                    Margin="3">
+                    <TextBlock
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        Text="{Binding Name}"/>
+                    <TextBlock
+                        FontSize="10"
+                        Text="{Binding PhoneNumber}"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+        <Style x:Key="notEnabled" TargetType="Button">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CurrentContact.HasErrors}" Value="True">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding CurrentContact.HasErrors}" Value="False">
+                    <Setter Property="IsEnabled" Value="True" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" MinWidth="170"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*" MinWidth="350"/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter 
+            Grid.Column="1" 
+            ShowsPreview="False" 
+            Width="3" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Stretch" 
+            Background="White"/>
+        <Grid 
+            Background="#f8f8f8" 
+            Grid.Column="0" 
+            Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="8,8,8,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Grid.Column="0" 
+                    Margin="3" 
+                    Text="Find:"/>
+                <TextBox 
+                    Grid.Column="1" 
+                    Margin="3" 
+                    Text=""/>
+            </Grid>
+            <Grid Grid.Row="1" Margin="8,0,8,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="17*"/>
+                    <RowDefinition Height="322*"/>
+                </Grid.RowDefinitions>
+                <ListBox 
+                    Margin="3" 
+                    ItemsSource="{Binding Contacts}"
+                    ItemTemplate="{StaticResource contactTemplate}"
+                    SelectedItem="{Binding CurrentContact}" 
+                    Grid.RowSpan="2"/>
+            </Grid>
+            <Grid Grid.Row="2" Margin="8,0,8,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button 
+                    Content="Add" 
+                    Grid.Column="0" 
+                    Height="25" 
+                    Width="Auto" 
+                    Margin="3"
+                    Command="{Binding AddCommand}" 
+                    IsEnabled="{Binding AddIsUnavailable}"/>
+                <Button 
+                    Content="Edit" 
+                    Grid.Column="1" 
+                    Height="25" 
+                    Width="Auto" 
+                    Margin="3"
+                    Command="{Binding EditCommand}" 
+                    IsEnabled="{Binding IsUnavailable}"/>
+                <Button 
+                    Content="Remove" 
+                    Grid.Column="2" 
+                    Height="25" 
+                    Width="Auto" 
+                    Margin="3"
+                    Command="{Binding RemoveCommand}" 
+                    IsEnabled="{Binding IsUnavailable}"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="2" Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <control:ContactControl 
+                DataContext="{Binding CurrentContact}" 
+                IsEdit="{Binding DataContext.IsUnavailable, 
+                RelativeSource={RelativeSource AncestorType=Window},
+                UpdateSourceTrigger=PropertyChanged}" 
+                Margin="3,0,3,0" 
+                VerticalAlignment="Center" Height="auto"/>
+            <Button 
+                Content="Apply" 
+                Height="25" 
+                Width="75"
+                HorizontalAlignment="Left" 
+                Margin="3,50,3,3" 
+                Grid.Row="1"
+                Visibility="{Binding IsUnavailable, Converter={StaticResource BoolToVisibilityConverter}}"
+                Command="{Binding ApplyCommand}"
+                Style="{StaticResource notEnabled}"/>
+        </Grid>
+    </Grid>
+</Window>
